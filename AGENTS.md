@@ -33,33 +33,42 @@ A production-grade React Native Expo base template designed as a reusable founda
 
 ```bash
 # Development
-npm start                  # Start Expo dev server
-npm run ios                # Run on iOS simulator
-npm run android            # Run on Android emulator/device
+yarn start                 # Start Expo dev server
+yarn ios                   # Run on iOS simulator
+yarn android               # Run on Android emulator/device
 
 # Type Checking
-npm run type-check         # tsc --noEmit (must pass with zero errors)
+yarn type-check            # tsc --noEmit (must pass with zero errors)
 
 # Linting
-npm run lint               # ESLint 9
-npm run lint:fix           # Auto-fix ESLint violations
+yarn lint                  # ESLint 9
+yarn lint:fix              # Auto-fix ESLint violations
 
 # Formatting
-npm run format             # Prettier format all files
-npm run format:check       # Check formatting (used in CI)
+yarn format                # Prettier format all files
+yarn format:check          # Check formatting (used in CI)
 
 # Validation (run all checks)
-npm run validate           # type-check + lint + format:check
+yarn validate              # type-check + lint + format:check
 
 # Testing
-npm test                   # Run Jest test suite
-npm run test:coverage      # Coverage report
+yarn test                  # Run Jest test suite
+yarn test:coverage         # Coverage report
 
 # Before every commit
-npm run validate           # Must pass with zero errors/warnings
+yarn validate              # Must pass with zero errors/warnings
 ```
 
-**IMPORTANT:** Always run `npm run validate` before completing a task. All three checks (type-check, lint, format) must pass.
+## Package Manager
+
+This repository uses `yarn` exclusively.
+
+- Always use `yarn` instead of `npm`, `pnpm`, or `bun`
+- Never run `npm install`, `npm run`, or `npx` unless the user explicitly asks
+- Use `yarn`, `yarn add`, `yarn remove`, and `yarn <script>` for all dependency and script commands
+- If an example command uses `npm`, convert it to the equivalent `yarn` command before running it
+
+**IMPORTANT:** Always run `yarn validate` before completing a task. All three checks (type-check, lint, format) must pass.
 
 ---
 
@@ -227,7 +236,7 @@ import { Text } from '@/common/components/Text';
 import { Button } from '@/common/components/Button';
 <Button title={t('actions.save')} variant="primary" loading={isPending} onPress={fn} />
 
-// Icon - Ionicons, variants: primary, secondary, tertiary, muted, inverse, accent
+// Icon - Lucide-backed project icon names, variants: primary, secondary, tertiary, muted, inverse, accent
 import { Icon } from '@/common/components/Icon';
 <Icon name="home-outline" variant="primary" size={20} />
 
@@ -347,7 +356,7 @@ describe('Button', () => {
 });
 ```
 
-Test environment is configured in `jest.config.ts` and `jest.setup.ts`. Run `npm test` to execute. Run `npm run test:coverage` for coverage.
+Test environment is configured in `jest.config.ts` and `jest.setup.ts`. Run `yarn test` to execute. Run `yarn test:coverage` for coverage.
 
 ---
 
@@ -401,8 +410,8 @@ Rules:
 
 ### Before Creating a PR
 
-1. Run `npm run validate` — must pass with zero errors
-2. Run `npm test` — all tests must pass
+1. Run `yarn validate` — must pass with zero errors
+2. Run `yarn test` — all tests must pass
 3. Ensure both `en.json` and `ar.json` are updated if UI text was added
 4. Ensure no `any` types were introduced
 5. Ensure no inline styles, color literals, or hardcoded strings
@@ -452,7 +461,7 @@ Do NOT disable the rule. Instead:
 
 1. **Read the error message** — ESLint messages explain what's wrong and often suggest fixes
 2. **Fix the code** — restructure to satisfy the rule (it exists for a reason)
-3. **Run `npm run lint:fix`** — many issues are auto-fixable
+3. **Run `yarn lint:fix`** — many issues are auto-fixable
 4. **Ask the user** — if you genuinely can't resolve it, ask rather than suppress
 
 ---

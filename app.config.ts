@@ -29,10 +29,6 @@ const config: ExpoConfig = {
     },
     package: 'com.gempixel.reactnativetemplate',
   },
-  web: {
-    output: 'static',
-    favicon: './assets/favicon.png',
-  },
   extra: {
     router: {},
     eas: {

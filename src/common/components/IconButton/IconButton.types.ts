@@ -1,4 +1,4 @@
-import type { IconProps } from '@/common/components/Icon';
+import type { LucideIcon } from 'lucide-react-native';
 
 /** Visual style variant for the IconButton component. */
 export type IconButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost';
@@ -8,8 +8,8 @@ export type IconButtonSize = 'sm' | 'md' | 'lg';
 
 /** Props for the {@link IconButton} component. */
 export interface IconButtonProps {
-  /** Ionicons icon name to display. */
-  icon: IconProps['name'];
+  /** Lucide icon component to display. */
+  icon: LucideIcon;
   /** Visual style variant. Defaults to `'ghost'`. */
   variant?: IconButtonVariant;
   /** Size of the button. Defaults to `'md'`. */

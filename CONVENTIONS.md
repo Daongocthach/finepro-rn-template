@@ -700,8 +700,8 @@ describe('Button', () => {
 ### Test Commands
 
 ```bash
-npm test                  # Run all tests
-npm run test:coverage     # Coverage report
+yarn test                 # Run all tests
+yarn test:coverage        # Coverage report
 ```
 
 ### Coverage Targets
@@ -754,7 +754,7 @@ Examples: `feat/product-listing`, `fix/rtl-badge-layout`, `chore/upgrade-expo-55
 The project runs `validate` (type-check + lint + format) via Husky. All checks must pass before committing.
 
 ```bash
-npm run validate   # Run manually before committing
+yarn validate      # Run manually before committing
 ```
 
 ---
@@ -783,10 +783,10 @@ These patterns are banned from new code. Automated hooks block them for Claude C
 
 ### Git Bypasses
 
-| Forbidden Pattern        | Alternative                                             |
-| ------------------------ | ------------------------------------------------------- |
-| `git commit --no-verify` | Fix the pre-commit hook errors (run `npm run validate`) |
-| `git push --no-verify`   | Fix the pre-push hook errors                            |
+| Forbidden Pattern        | Alternative                                          |
+| ------------------------ | ---------------------------------------------------- |
+| `git commit --no-verify` | Fix the pre-commit hook errors (run `yarn validate`) |
+| `git push --no-verify`   | Fix the pre-push hook errors                         |
 
 ### Existing Exceptions
 

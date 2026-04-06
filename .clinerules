@@ -10,6 +10,12 @@ This is a production-grade React Native Expo template project. Read and apply ev
 - `@/*` → `src/*`
 - `~/*` → `app/*`
 
+**Package manager:**
+- Use `yarn` as the only package manager in this repository.
+- Never use `npm`, `pnpm`, or `bun` unless the user explicitly asks.
+- Convert all script commands to `yarn <script>`.
+- Use `yarn add` and `yarn remove` for dependency changes.
+
 **Key file locations:**
 - 33 shared components: `src/common/components/`
 - Auth store: `src/providers/auth/authStore.ts`

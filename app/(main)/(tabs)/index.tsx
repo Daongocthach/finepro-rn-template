@@ -1,16 +1,20 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import {
+  ArrowDown,
+  ArrowUp,
+  Bell,
+  CheckCheck,
+  Grid2x2,
+  MessageCircleMore,
+  Palette,
+  Sparkles,
+  TrendingUp,
+  Wallet,
+} from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import {
-  Avatar,
-  Card,
-  Icon,
-  ListItem,
-  ScreenContainer,
-  SearchBar,
-  Text,
-} from '@/common/components';
+import { Avatar, Card, ListItem, ScreenContainer, SearchBar, Text } from '@/common/components';
 
 function getGreetingKey(hour: number): 'greetingMorning' | 'greetingAfternoon' | 'greetingEvening' {
   if (hour < 12) return 'greetingMorning';
@@ -27,25 +31,25 @@ export default function HomeTab() {
     {
       key: 'send',
       label: t('home.quickActions.send'),
-      icon: 'arrow-up-outline' as const,
+      icon: ArrowUp,
       toneStyle: styles.actionBubblePrimary,
     },
     {
       key: 'receive',
       label: t('home.quickActions.receive'),
-      icon: 'arrow-down-outline' as const,
+      icon: ArrowDown,
       toneStyle: styles.actionBubbleAccent,
     },
     {
       key: 'pay',
       label: t('home.quickActions.pay'),
-      icon: 'card-outline' as const,
+      icon: Wallet,
       toneStyle: styles.actionBubbleHighlight,
     },
     {
       key: 'more',
       label: t('home.quickActions.more'),
-      icon: 'grid-outline' as const,
+      icon: Grid2x2,
       toneStyle: styles.actionBubbleSoft,
     },
   ];
@@ -56,28 +60,28 @@ export default function HomeTab() {
       title: t('home.recentActivity.item1Title'),
       subtitle: t('home.recentActivity.item1Subtitle'),
       time: t('home.recentActivity.item1Time'),
-      icon: 'sparkles-outline' as const,
+      icon: Sparkles,
     },
     {
       key: 'item2',
       title: t('home.recentActivity.item2Title'),
       subtitle: t('home.recentActivity.item2Subtitle'),
       time: t('home.recentActivity.item2Time'),
-      icon: 'checkmark-done-outline' as const,
+      icon: CheckCheck,
     },
     {
       key: 'item3',
       title: t('home.recentActivity.item3Title'),
       subtitle: t('home.recentActivity.item3Subtitle'),
       time: t('home.recentActivity.item3Time'),
-      icon: 'chatbubble-ellipses-outline' as const,
+      icon: MessageCircleMore,
     },
     {
       key: 'item4',
       title: t('home.recentActivity.item4Title'),
       subtitle: t('home.recentActivity.item4Subtitle'),
       time: t('home.recentActivity.item4Time'),
-      icon: 'wallet-outline' as const,
+      icon: Wallet,
     },
   ];
 
@@ -95,7 +99,12 @@ export default function HomeTab() {
             </View>
           </View>
           <Pressable accessibilityRole="button" style={styles.iconButton}>
-            <Icon name="notifications-outline" variant="secondary" size={20} />
+            <Bell
+              size={20}
+              color={theme.colors.icon.secondary}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
           </Pressable>
         </View>
 
@@ -109,7 +118,12 @@ export default function HomeTab() {
           {quickActions.map((action) => (
             <Pressable key={action.key} accessibilityRole="button" style={styles.actionItem}>
               <View style={[styles.actionBubble, action.toneStyle]}>
-                <Icon name={action.icon} variant="inverse" size={18} />
+                <action.icon
+                  size={18}
+                  color={theme.colors.icon.inverse}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
               </View>
               <Text variant="caption" color="secondary" align="center">
                 {action.label}
@@ -128,7 +142,12 @@ export default function HomeTab() {
         <View style={styles.featuredGrid}>
           <LinearGradient colors={theme.colors.gradient.secondary} style={styles.featuredCard}>
             <View style={styles.featuredIconShell}>
-              <Icon name="color-palette-outline" variant="inverse" size={18} />
+              <Palette
+                size={18}
+                color={theme.colors.icon.inverse}
+                strokeWidth={2}
+                absoluteStrokeWidth
+              />
             </View>
             <View style={styles.featuredCopy}>
               <Text variant="h3" color="inverse">
@@ -142,7 +161,12 @@ export default function HomeTab() {
 
           <LinearGradient colors={theme.colors.gradient.accent} style={styles.featuredCard}>
             <View style={styles.featuredIconShell}>
-              <Icon name="trending-up-outline" variant="inverse" size={18} />
+              <TrendingUp
+                size={18}
+                color={theme.colors.icon.inverse}
+                strokeWidth={2}
+                absoluteStrokeWidth
+              />
             </View>
             <View style={styles.featuredCopy}>
               <Text variant="h3" color="inverse">
@@ -203,7 +227,12 @@ export default function HomeTab() {
               divider={index < recentItems.length - 1}
               left={
                 <View style={styles.activityIcon}>
-                  <Icon name={item.icon} variant="primary" size={18} />
+                  <item.icon
+                    size={18}
+                    color={theme.colors.icon.primary}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
                 </View>
               }
               right={

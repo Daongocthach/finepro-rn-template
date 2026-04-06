@@ -91,7 +91,7 @@ A circular/square pressable containing only an icon. `accessibilityLabel` is req
 
 | Prop                 | Type                                               | Default     | Description                                   |
 | -------------------- | -------------------------------------------------- | ----------- | --------------------------------------------- |
-| `icon`               | `ComponentProps<typeof Ionicons>['name']`          | required    | Ionicons icon name                            |
+| `icon`               | `IconProps['name']`                                | required    | Project-supported icon name                   |
 | `accessibilityLabel` | `string`                                           | required    | Screen reader label (required)                |
 | `variant`            | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | `'ghost'`   | Visual style                                  |
 | `size`               | `'sm' \| 'md' \| 'lg'`                             | `'md'`      | Size (sm: 32px, md: 40px, lg: 48px container) |
@@ -1136,13 +1136,13 @@ Context menu anchored to a trigger element.
 
 **MenuItem Shape**
 
-| Field         | Type                | Required | Description             |
-| ------------- | ------------------- | -------- | ----------------------- |
-| `label`       | `string`            | yes      | Item label              |
-| `onPress`     | `() => void`        | yes      | Press handler           |
-| `icon`        | `IconProps['name']` | no       | Ionicons icon name      |
-| `disabled`    | `boolean`           | no       | Disables this item      |
-| `destructive` | `boolean`           | no       | Red destructive styling |
+| Field         | Type                | Required | Description                 |
+| ------------- | ------------------- | -------- | --------------------------- |
+| `label`       | `string`            | yes      | Item label                  |
+| `onPress`     | `() => void`        | yes      | Press handler               |
+| `icon`        | `IconProps['name']` | no       | Project-supported icon name |
+| `disabled`    | `boolean`           | no       | Disables this item          |
+| `destructive` | `boolean`           | no       | Red destructive styling     |
 
 **Usage**
 
@@ -1157,14 +1157,14 @@ const [menuVisible, setMenuVisible] = useState(false);
   onDismiss={() => setMenuVisible(false)}
   anchor={
     <IconButton
-      icon="ellipsis-vertical-outline"
+      icon="ellipsis-vertical"
       accessibilityLabel={t('actions.moreOptions')}
       onPress={() => setMenuVisible(true)}
     />
   }
   items={[
-    { label: t('actions.edit'), icon: 'pencil-outline', onPress: handleEdit },
-    { label: t('actions.share'), icon: 'share-outline', onPress: handleShare },
+    { label: t('actions.edit'), icon: 'sparkles-outline', onPress: handleEdit },
+    { label: t('actions.share'), icon: 'mail-outline', onPress: handleShare },
     { label: t('actions.delete'), icon: 'trash-outline', onPress: handleDelete, destructive: true },
   ]}
 />
@@ -1178,13 +1178,13 @@ const [menuVisible, setMenuVisible] = useState(false);
 
 **File:** `src/common/components/Icon/Icon.tsx`
 
-Themed Ionicons wrapper with semantic color variants.
+Themed Lucide wrapper with semantic color variants.
 
 **Props**
 
 | Prop                 | Type                                                                         | Default                          | Description                      |
 | -------------------- | ---------------------------------------------------------------------------- | -------------------------------- | -------------------------------- |
-| `name`               | `ComponentProps<typeof Ionicons>['name']`                                    | required                         | Ionicons icon name               |
+| `name`               | `IconProps['name']`                                                          | required                         | Project-supported icon name      |
 | `variant`            | `'primary' \| 'secondary' \| 'tertiary' \| 'muted' \| 'inverse' \| 'accent'` | `'primary'`                      | Semantic color                   |
 | `size`               | `number`                                                                     | `theme.metrics.iconSize.md` (18) | Icon size in pixels              |
 | `color`              | `string`                                                                     | Variant default                  | Override color (use theme token) |

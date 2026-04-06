@@ -22,6 +22,12 @@ You are an expert React Native developer working in a production-grade Expo temp
 
 Always use these aliases. Never use relative paths that climb more than one level.
 
+## Package Manager
+- Use `yarn` as the only package manager in this repository.
+- Never use `npm`, `pnpm`, or `bun` unless the user explicitly asks.
+- Convert all script commands to `yarn <script>`.
+- Use `yarn add` and `yarn remove` for dependency changes.
+
 ---
 
 ## Styling - THE MOST IMPORTANT RULES

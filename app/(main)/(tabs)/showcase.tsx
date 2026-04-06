@@ -1,7 +1,8 @@
+import { Album, ChevronRight, Mail, PieChart, Sparkles, Wallet } from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import {
   Accordion,
   Avatar,
@@ -12,7 +13,6 @@ import {
   Chip,
   Divider,
   EmptyState,
-  Icon,
   Input,
   ListItem,
   Loading,
@@ -29,6 +29,7 @@ import {
 
 export default function ShowcaseTab() {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
   const [query, setQuery] = useState('');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
@@ -109,7 +110,14 @@ export default function ShowcaseTab() {
               label={t('showcase.statusReady')}
               variant="solid"
               selected
-              icon={<Icon name="sparkles" size={16} variant="inverse" />}
+              icon={
+                <Sparkles
+                  size={16}
+                  color={theme.colors.icon.inverse}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
           </View>
           <View style={styles.metricsRow}>
@@ -170,7 +178,14 @@ export default function ShowcaseTab() {
               onChangeText={setEmail}
               placeholder={t('showcase.emailPlaceholder')}
               helperText={t('showcase.emailHelper')}
-              leftIcon={<Icon name="mail-outline" size={18} variant="muted" />}
+              leftIcon={
+                <Mail
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <Select
               label={t('showcase.categoryLabel')}
@@ -214,14 +229,35 @@ export default function ShowcaseTab() {
             <ListItem
               title={t('showcase.list.primaryTitle')}
               subtitle={t('showcase.list.primarySubtitle')}
-              left={<Icon name="wallet-outline" size={20} variant="accent" />}
-              right={<Icon name="chevron-forward" size={18} variant="muted" />}
+              left={
+                <Wallet
+                  size={20}
+                  color={theme.colors.icon.accent}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
               divider
             />
             <ListItem
               title={t('showcase.list.secondaryTitle')}
               subtitle={t('showcase.list.secondarySubtitle')}
-              left={<Icon name="pie-chart-outline" size={20} variant="primary" />}
+              left={
+                <PieChart
+                  size={20}
+                  color={theme.colors.icon.primary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
               right={<Badge count={8} colorScheme="info" />}
             />
             <Divider />
@@ -239,7 +275,14 @@ export default function ShowcaseTab() {
               <EmptyState
                 title={t('showcase.empty.title')}
                 message={t('showcase.empty.message')}
-                icon={<Icon name="albums-outline" size={28} variant="secondary" />}
+                icon={
+                  <Album
+                    size={28}
+                    color={theme.colors.icon.secondary}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
+                }
                 actionLabel={t('showcase.empty.action')}
                 onAction={() => undefined}
               />

@@ -1,6 +1,13 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { LinearGradient } from 'expo-linear-gradient';
-import type { ComponentProps } from 'react';
+import {
+  ChartColumn,
+  Circle,
+  House,
+  Library,
+  Plus,
+  User,
+  type LucideIcon,
+} from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUnistyles } from 'react-native-unistyles';
@@ -8,14 +15,12 @@ import { vs } from '@/theme/metrics';
 import { styles } from './TabBar.styles';
 import type { TabBarProps } from './TabBar.types';
 
-type IoniconsName = ComponentProps<typeof Ionicons>['name'];
-
-const TAB_ICONS: Record<string, { active: IoniconsName; inactive: IoniconsName }> = {
-  index: { active: 'home', inactive: 'home-outline' },
-  stats: { active: 'stats-chart', inactive: 'stats-chart-outline' },
-  add: { active: 'add', inactive: 'add' },
-  favorites: { active: 'library', inactive: 'library-outline' },
-  profile: { active: 'person', inactive: 'person-outline' },
+const TAB_ICONS: Record<string, { active: LucideIcon; inactive: LucideIcon }> = {
+  index: { active: House, inactive: House },
+  stats: { active: ChartColumn, inactive: ChartColumn },
+  add: { active: Plus, inactive: Plus },
+  favorites: { active: Library, inactive: Library },
+  profile: { active: User, inactive: User },
 };
 
 export function TabBar({ state, descriptors, navigation }: TabBarProps) {
@@ -47,8 +52,8 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
           });
         };
 
-        const icons = TAB_ICONS[route.name] ?? { active: 'ellipse', inactive: 'ellipse-outline' };
-        const iconName = isFocused ? icons.active : icons.inactive;
+        const icons = TAB_ICONS[route.name] ?? { active: Circle, inactive: Circle };
+        const TabIcon = isFocused ? icons.active : icons.inactive;
         const isAddTab = route.name === 'add';
         let iconColor = theme.colors.icon.primary;
 
@@ -74,7 +79,14 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
                   colors={theme.colors.gradient.accent}
                   style={styles.addBubbleGradient}
                 >
-                  <Ionicons name={iconName} size={24} color={iconColor} />
+                  <TabIcon
+                    size={24}
+                    color={iconColor}
+                    accessibilityRole="image"
+                    accessibilityLabel={options.title}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
                 </LinearGradient>
               </View>
             ) : (
@@ -84,7 +96,14 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
                   isFocused ? styles.tabBubbleActive : styles.tabBubbleInactive,
                 ]}
               >
-                <Ionicons name={iconName} size={18} color={iconColor} />
+                <TabIcon
+                  size={18}
+                  color={iconColor}
+                  accessibilityRole="image"
+                  accessibilityLabel={options.title}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
               </View>
             )}
           </Pressable>

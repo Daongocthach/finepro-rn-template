@@ -23,18 +23,26 @@ A production-grade React Native Expo base template designed as a reusable founda
 ## Commands
 
 ```bash
-npm start                  # Start Expo dev server
-npm run ios                # Run on iOS
-npm run android            # Run on Android
-npm run type-check         # TypeScript type checking
-npm run lint               # ESLint
-npm run lint:fix           # Auto-fix ESLint errors
-npm run format             # Prettier format
-npm run format:check       # Check formatting
-npm run validate           # All checks (type-check + lint + format)
-npm test                   # Run tests
-npm run test:coverage      # Coverage report
+yarn start                 # Start Expo dev server
+yarn ios                   # Run on iOS
+yarn android               # Run on Android
+yarn type-check            # TypeScript type checking
+yarn lint                  # ESLint
+yarn lint:fix              # Auto-fix ESLint errors
+yarn format                # Prettier format
+yarn format:check          # Check formatting
+yarn validate              # All checks (type-check + lint + format)
+yarn test                  # Run tests
+yarn test:coverage         # Coverage report
 ```
+
+## Package Manager
+
+Use `yarn` as the only package manager in this repository.
+
+- Never use `npm`, `pnpm`, or `bun` unless the user explicitly asks
+- Convert all script commands to `yarn <script>`
+- Use `yarn add` and `yarn remove` for dependency changes
 
 ## Project Structure
 
@@ -153,7 +161,7 @@ See `docs/COMPONENTS.md` for full API reference with props tables and usage exam
 
 When adapting this template for a specific app (e-commerce, social, games, etc.):
 
-- **Non-technical users / no AI:** Run `npm run migrate` for the interactive wizard
+- **Non-technical users / no AI:** Run `yarn migrate` for the interactive wizard
 - **AI agents:** Follow `docs/MIGRATION.md` for the complete step-by-step guide
 
 ## Extended Documentation

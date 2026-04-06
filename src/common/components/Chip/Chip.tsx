@@ -1,7 +1,7 @@
+import { CircleX } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
-import { Icon } from '@/common/components/Icon';
 import { Text } from '@/common/components/Text';
 import { useAnimatedPress } from '@/hooks/useAnimatedPress';
 import { styles } from './Chip.styles';
@@ -87,11 +87,11 @@ export function Chip({
           accessibilityRole="button"
           accessibilityLabel={`Remove ${content}`}
         >
-          <Icon
-            name="close-circle"
-            sizeVariant={size === 'sm' ? 'xs' : 'sm'}
-            variant="muted"
-            color={closeIconColor}
+          <CircleX
+            size={size === 'sm' ? theme.metrics.iconSize.xs : theme.metrics.iconSize.sm}
+            color={closeIconColor ?? theme.colors.icon.muted}
+            strokeWidth={2}
+            absoluteStrokeWidth
           />
         </Pressable>
       )}

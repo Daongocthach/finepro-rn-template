@@ -1,10 +1,10 @@
+import { Check, Trash2, X } from 'lucide-react-native';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { StyleProp, TextStyle } from 'react-native';
 import { Pressable, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { Button } from '@/common/components/Button';
-import { Icon } from '@/common/components/Icon';
 import { Text } from '@/common/components/Text';
 import {
   appAlert,
@@ -29,16 +29,22 @@ function getButtonVariant(button: AppAlertButton) {
   return 'primary' as const;
 }
 
-function getButtonIcon(button: AppAlertButton) {
+function getButtonIcon(
+  button: AppAlertButton,
+  colors: {
+    icon: { primary: string; onBrand: string };
+    state: { error: string };
+  }
+) {
   if (button.style === 'cancel') {
-    return <Icon name="close" variant="primary" size={16} />;
+    return <X size={16} color={colors.icon.primary} strokeWidth={2} absoluteStrokeWidth />;
   }
 
   if (button.style === 'destructive') {
-    return <Icon name="trash-outline" destructive size={16} />;
+    return <Trash2 size={16} color={colors.state.error} strokeWidth={2} absoluteStrokeWidth />;
   }
 
-  return <Icon name="checkmark" variant="onBrand" size={16} />;
+  return <Check size={16} color={colors.icon.onBrand} strokeWidth={2} absoluteStrokeWidth />;
 }
 
 function getButtonLabelStyle(button: AppAlertButton): StyleProp<TextStyle> | undefined {
@@ -51,6 +57,7 @@ function getButtonLabelStyle(button: AppAlertButton): StyleProp<TextStyle> | und
 
 export function AppAlertProvider({ children }: AppAlertProviderProps) {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
   const [currentAlert, setCurrentAlert] = useState<AppAlertPayload | null>(null);
 
   useEffect(() => registerAppAlertHandler(setCurrentAlert), []);
@@ -66,14 +73,14 @@ export function AppAlertProvider({ children }: AppAlertProviderProps) {
     return nextButtons.map((button) => ({
       text: button.text,
       variant: getButtonVariant(button),
-      leftIcon: getButtonIcon(button),
+      leftIcon: getButtonIcon(button, theme.colors),
       labelStyle: getButtonLabelStyle(button),
       onPress: () => {
         dismiss();
         button.onPress?.();
       },
     }));
-  }, [currentAlert?.buttons, t]);
+  }, [currentAlert?.buttons, t, theme.colors]);
 
   const dismissOnBackdropPress = currentAlert?.options?.dismissOnBackdropPress ?? true;
 

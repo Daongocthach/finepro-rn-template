@@ -1,5 +1,5 @@
+import type { LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
-import type { IconProps } from '@/common/components/Icon';
 
 /** Represents a single item within a {@link Menu}. */
 export interface MenuItem {
@@ -7,8 +7,8 @@ export interface MenuItem {
   label: string;
   /** Callback fired when the menu item is pressed. */
   onPress: () => void;
-  /** Optional icon name rendered to the left of the label. */
-  icon?: IconProps['name'];
+  /** Optional Lucide icon rendered to the left of the label. */
+  icon?: LucideIcon;
   /** Whether the menu item is disabled. Defaults to `false`. */
   disabled?: boolean;
   /** Whether the menu item represents a destructive action, applying warning styles. Defaults to `false`. */

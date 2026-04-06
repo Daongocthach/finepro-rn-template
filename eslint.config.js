@@ -14,7 +14,6 @@ module.exports = [
       'node_modules/',
       '.expo/',
       'dist/',
-      'web-build/',
       'ios/',
       'android/',
       'coverage/',

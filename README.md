@@ -81,7 +81,6 @@ The app boots without any backend-specific credentials. Wire your own auth and A
 npm start
 npm run ios
 npm run android
-npm run web
 
 # Quality
 npm run type-check

@@ -1,6 +1,7 @@
+import { Eye, EyeOff } from 'lucide-react-native';
 import { useState } from 'react';
 import { View, Pressable } from 'react-native';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import { UniTextInput } from '@/common/components/uni';
 import { styles } from './Input.styles';
@@ -26,6 +27,7 @@ export function Input({
   style,
   ...rest
 }: InputProps) {
+  const { theme } = useUnistyles();
   const [focused, setFocused] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -46,7 +48,11 @@ export function Input({
       accessibilityLabel={passwordVisible ? 'Hide password' : 'Show password'}
       hitSlop={8}
     >
-      <Icon name={passwordVisible ? 'eye-off-outline' : 'eye-outline'} variant="muted" size={20} />
+      {passwordVisible ? (
+        <EyeOff size={20} color={theme.colors.icon.muted} strokeWidth={2} absoluteStrokeWidth />
+      ) : (
+        <Eye size={20} color={theme.colors.icon.muted} strokeWidth={2} absoluteStrokeWidth />
+      )}
     </Pressable>
   ) : null;
 
@@ -73,7 +79,9 @@ export function Input({
             setFocused(false);
             rest.onBlur?.(e);
           }}
-          uniProps={(theme) => ({ placeholderTextColor: theme.colors.text.muted })}
+          uniProps={(unistylesTheme) => ({
+            placeholderTextColor: unistylesTheme.colors.text.muted,
+          })}
           {...rest}
         />
         {passwordToggle ?? rightIcon}

@@ -119,7 +119,7 @@ Overlay:
   Menu - visible, onDismiss, anchor, items array (label/onPress/icon/disabled/destructive)
 
 Typography:
-  Icon - name (Ionicons), variant: primary/secondary/tertiary/muted/inverse/accent, size, color
+  Icon - name (project Lucide registry), variant: primary/secondary/tertiary/muted/inverse/accent, size, color
 
 ## Theme Color Tokens
 

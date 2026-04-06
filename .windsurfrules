@@ -18,6 +18,8 @@ You are working in a production-grade React Native Expo template. These rules ar
 
 **Path aliases:** `@/*` → `src/*` | `~/*` → `app/*`
 
+**Package manager:** Use `yarn` only. Never use `npm`, `pnpm`, or `bun` unless the user explicitly asks. Convert all script commands to `yarn <script>`, and use `yarn add` / `yarn remove` for dependency changes.
+
 ---
 
 ## Rule 1: Styling
@@ -103,7 +105,7 @@ import { Button } from '@/common/components/Button';
 <Button title={t('actions.submit')} variant="primary" loading={isPending} onPress={fn} />
 <Button title={t('actions.cancel')} variant="ghost" fullWidth onPress={fn} />
 
-// Icon - Ionicons names only
+// Icon - use the project Icon component and repo-supported icon names
 import { Icon } from '@/common/components/Icon';
 // Variants: primary, secondary, tertiary, muted, inverse, accent
 <Icon name="settings-outline" variant="primary" size={20} />

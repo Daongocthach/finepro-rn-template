@@ -24,10 +24,10 @@ The app works without any backend-specific configuration. Add only the variables
 
 ## Environment Variables
 
-| Variable                             | Required | Description                                                |
-| ------------------------------------ | -------- | ---------------------------------------------------------- |
-| `EXPO_PUBLIC_API_BASE_URL`           | No       | Base URL for API client (default: https://api.example.com) |
-| `EXPO_PUBLIC_APP_ENV`                | No       | Environment: development, staging, production              |
+| Variable                   | Required | Description                                                |
+| -------------------------- | -------- | ---------------------------------------------------------- |
+| `EXPO_PUBLIC_API_BASE_URL` | No       | Base URL for API client (default: https://api.example.com) |
+| `EXPO_PUBLIC_APP_ENV`      | No       | Environment: development, staging, production              |
 
 ## Customization Checklist
 

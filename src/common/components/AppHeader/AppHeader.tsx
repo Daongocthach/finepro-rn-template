@@ -1,11 +1,11 @@
 import { Image } from 'expo-image';
 import { LinearGradient } from 'expo-linear-gradient';
 import { usePathname, useRouter } from 'expo-router';
+import { ChevronLeft } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { Icon } from '@/common/components/Icon';
 import { Select } from '@/common/components/Select';
 import { Text } from '@/common/components/Text';
 import { useScreenDimensions } from '@/hooks/useScreenDimensions';
@@ -103,7 +103,12 @@ export function AppHeader() {
         accessibilityLabel={t('header.back')}
         style={styles.backButtonWrap}
       >
-        <Icon name="chevron-back" variant="primary" size={18} />
+        <ChevronLeft
+          size={18}
+          color={theme.colors.icon.primary}
+          strokeWidth={2}
+          absoluteStrokeWidth
+        />
       </Pressable>
       <Text
         variant="h3"

@@ -1,6 +1,8 @@
+import type { LucideIcon } from 'lucide-react-native';
 import { Pressable } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { UniActivityIndicator, UniIonicons } from '@/common/components/uni';
+import { useUnistyles } from 'react-native-unistyles';
+import { UniActivityIndicator } from '@/common/components/uni';
 import { useAnimatedPress } from '@/hooks/useAnimatedPress';
 import { ICON_SIZES, styles } from './IconButton.styles';
 import type { IconButtonProps } from './IconButton.types';
@@ -25,27 +27,21 @@ export function IconButton({
   onPress,
   accessibilityLabel,
 }: IconButtonProps) {
+  const { theme } = useUnistyles();
   const { animatedStyle, onPressIn, onPressOut } = useAnimatedPress();
+  const LucideIcon = icon as LucideIcon;
 
   styles.useVariants({ variant, size, disabled: disabled || loading });
 
   const iconSize = ICON_SIZES[size] ?? ICON_SIZES.md;
 
-  const resolveColor = (theme: {
-    colors: {
-      text: { primary: string };
-      brand: { primary: string };
-      icon: { primary: string };
-    };
-  }) => {
-    const colorMap = {
-      primary: theme.colors.text.primary,
-      secondary: theme.colors.text.primary,
-      outline: theme.colors.brand.primary,
-      ghost: theme.colors.icon.primary,
-    };
-    return color ?? colorMap[variant];
+  const colorMap = {
+    primary: theme.colors.text.primary,
+    secondary: theme.colors.text.primary,
+    outline: theme.colors.brand.primary,
+    ghost: theme.colors.icon.primary,
   };
+  const resolvedColor = color ?? colorMap[variant];
 
   return (
     <AnimatedPressable
@@ -59,13 +55,15 @@ export function IconButton({
       style={[styles.container, animatedStyle]}
     >
       {loading ? (
-        <UniActivityIndicator size="small" uniProps={(theme) => ({ color: resolveColor(theme) })} />
+        <UniActivityIndicator size="small" uniProps={() => ({ color: resolvedColor })} />
       ) : (
-        <UniIonicons
-          name={icon}
+        <LucideIcon
           size={iconSize}
+          color={resolvedColor}
           accessibilityRole="image"
-          uniProps={(theme) => ({ color: resolveColor(theme) })}
+          accessibilityLabel={accessibilityLabel}
+          strokeWidth={2}
+          absoluteStrokeWidth
         />
       )}
     </AnimatedPressable>

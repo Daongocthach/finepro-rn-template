@@ -1,6 +1,7 @@
 import { Image } from 'expo-image';
+import { User } from 'lucide-react-native';
 import { View } from 'react-native';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import { styles } from './Avatar.styles';
 import { AVATAR_SIZES } from './Avatar.types';
@@ -16,6 +17,7 @@ import type { AvatarProps } from './Avatar.types';
  * ```
  */
 export function Avatar({ source, initials, icon, size = 'md', accessibilityLabel }: AvatarProps) {
+  const { theme } = useUnistyles();
   const dimension = AVATAR_SIZES[size];
   const fontSize = dimension * 0.4;
 
@@ -65,7 +67,12 @@ export function Avatar({ source, initials, icon, size = 'md', accessibilityLabel
       accessibilityRole="image"
       accessibilityLabel={accessibilityLabel ?? 'User avatar'}
     >
-      <Icon name="person" variant="inverse" size={dimension * 0.5} />
+      <User
+        size={dimension * 0.5}
+        color={theme.colors.icon.inverse}
+        strokeWidth={2}
+        absoluteStrokeWidth
+      />
     </View>
   );
 }

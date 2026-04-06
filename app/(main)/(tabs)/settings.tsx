@@ -1,13 +1,27 @@
+import {
+  Bell,
+  ChevronRight,
+  CircleUser,
+  Info,
+  LifeBuoy,
+  LogOut,
+  MessageCircleMore,
+  Send,
+  ShieldCheck,
+  Smartphone,
+  Sparkles,
+  Trash2,
+  Wallet,
+} from 'lucide-react-native';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import {
   Avatar,
   Button,
   Card,
   Chip,
-  Icon,
   ListItem,
   ScreenContainer,
   Switch,
@@ -17,6 +31,7 @@ import { getCurrentMode, toggleDarkMode } from '@/theme/themeManager';
 
 export default function SettingsTab() {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
   const [isDarkMode, setIsDarkMode] = useState(getCurrentMode() === 'dark');
 
   const handleDarkModeChange = (value: boolean) => {
@@ -45,7 +60,14 @@ export default function SettingsTab() {
               <Chip
                 label={isDarkMode ? t('settings.darkMode') : t('settings.appearance')}
                 variant="outline"
-                icon={<Icon name="sparkles-outline" variant="accent" size={16} />}
+                icon={
+                  <Sparkles
+                    size={16}
+                    color={theme.colors.icon.accent}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
+                }
               />
             </View>
           </View>
@@ -65,28 +87,84 @@ export default function SettingsTab() {
               title={t('settings.account.profile')}
               subtitle={t('settings.account.profileSubtitle')}
               divider
-              left={<Icon name="person-circle-outline" variant="primary" size={22} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <CircleUser
+                  size={22}
+                  color={theme.colors.icon.primary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.account.security')}
               subtitle={t('settings.account.securitySubtitle')}
               divider
-              left={<Icon name="shield-checkmark-outline" variant="accent" size={22} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <ShieldCheck
+                  size={22}
+                  color={theme.colors.icon.accent}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.account.billing')}
               subtitle={t('settings.account.billingSubtitle')}
               divider
-              left={<Icon name="card-outline" variant="secondary" size={22} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <Wallet
+                  size={22}
+                  color={theme.colors.icon.secondary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.account.notifications')}
               subtitle={t('settings.account.notificationsSubtitle')}
-              left={<Icon name="notifications-outline" destructive size={22} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <Bell
+                  size={22}
+                  color={theme.colors.state.error}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
           </Card>
         </View>
@@ -112,14 +190,42 @@ export default function SettingsTab() {
               title={t('settings.preferences.pushNotifications')}
               subtitle={t('settings.account.notificationsSubtitle')}
               divider
-              left={<Icon name="paper-plane-outline" variant="primary" size={20} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <Send
+                  size={20}
+                  color={theme.colors.icon.primary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.preferences.appIcon')}
               subtitle={t('settings.preferences.appIconSubtitle')}
-              left={<Icon name="phone-portrait-outline" variant="accent" size={20} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <Smartphone
+                  size={20}
+                  color={theme.colors.icon.accent}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
           </Card>
         </View>
@@ -133,20 +239,55 @@ export default function SettingsTab() {
               title={t('settings.support.helpCenter')}
               subtitle={t('settings.support.helpCenterSubtitle')}
               divider
-              left={<Icon name="help-buoy-outline" variant="primary" size={20} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <LifeBuoy
+                  size={20}
+                  color={theme.colors.icon.primary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.support.feedback')}
               subtitle={t('settings.support.feedbackSubtitle')}
               divider
-              left={<Icon name="chatbox-ellipses-outline" variant="accent" size={20} />}
-              right={<Icon name="chevron-forward" variant="muted" size={18} />}
+              left={
+                <MessageCircleMore
+                  size={20}
+                  color={theme.colors.icon.accent}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
+              right={
+                <ChevronRight
+                  size={18}
+                  color={theme.colors.icon.muted}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
             />
             <ListItem
               title={t('settings.about')}
               subtitle={t('settings.support.aboutSubtitle')}
-              left={<Icon name="information-circle-outline" variant="secondary" size={20} />}
+              left={
+                <Info
+                  size={20}
+                  color={theme.colors.icon.secondary}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
+              }
               right={
                 <Text variant="caption" color="secondary">
                   {t('settings.version')} 1.0.0
@@ -170,7 +311,12 @@ export default function SettingsTab() {
                   {t('settings.danger.logoutSubtitle')}
                 </Text>
               </View>
-              <Icon name="log-out-outline" destructive size={20} />
+              <LogOut
+                size={20}
+                color={theme.colors.state.error}
+                strokeWidth={2}
+                absoluteStrokeWidth
+              />
             </Pressable>
             <View style={styles.preferenceDivider} />
             <Pressable style={styles.dangerRow}>
@@ -182,7 +328,12 @@ export default function SettingsTab() {
                   {t('settings.danger.deleteAccountSubtitle')}
                 </Text>
               </View>
-              <Icon name="trash-outline" destructive size={20} />
+              <Trash2
+                size={20}
+                color={theme.colors.state.error}
+                strokeWidth={2}
+                absoluteStrokeWidth
+              />
             </Pressable>
           </Card>
         </View>

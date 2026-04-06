@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View, type ListRenderItem } from 'react-native';
@@ -154,7 +155,7 @@ export function MonthSelector({
     <View style={styles.container}>
       <View style={styles.header}>
         <IconButton
-          icon="chevron-back"
+          icon={ChevronLeft}
           variant="ghost"
           size="md"
           disabled={!canMovePrev}
@@ -167,7 +168,7 @@ export function MonthSelector({
           </Text>
         </View>
         <IconButton
-          icon="chevron-forward"
+          icon={ChevronRight}
           variant="ghost"
           size="md"
           disabled={!canMoveNext}

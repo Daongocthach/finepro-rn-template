@@ -1,4 +1,5 @@
 import { CameraView, type BarcodeScanningResult, useCameraPermissions } from 'expo-camera';
+import { Camera, Flashlight, FlashlightOff, X } from 'lucide-react-native';
 import {
   type ReactNode,
   createContext,
@@ -11,8 +12,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Modal, Pressable, View } from 'react-native';
 import { Gesture, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
-import { StyleSheet } from 'react-native-unistyles';
-import { Icon, Text } from '@/common/components';
+import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { Text } from '@/common/components';
 import { useScreenDimensions } from '@/hooks/useScreenDimensions';
 import { toast } from '@/utils/toast';
 
@@ -60,6 +61,7 @@ function buildFileName(uri: string) {
 
 export function CameraProvider({ children }: CameraProviderProps) {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
   const { isTablet } = useScreenDimensions();
   const [permission, requestPermission] = useCameraPermissions();
   const [visible, setVisible] = useState(false);
@@ -288,7 +290,12 @@ export function CameraProvider({ children }: CameraProviderProps) {
                 onPress={handleDismiss}
                 style={styles.headerAction}
               >
-                <Icon name="close" variant="onBrand" size={18} />
+                <X
+                  size={18}
+                  color={theme.colors.icon.onBrand}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
               </Pressable>
             </View>
           </View>
@@ -306,7 +313,12 @@ export function CameraProvider({ children }: CameraProviderProps) {
                   mode === 'scan' && styles.secondaryActionDisabled,
                 ]}
               >
-                <Icon name="camera-reverse-outline" variant="onBrand" size={22} />
+                <Camera
+                  size={22}
+                  color={theme.colors.icon.onBrand}
+                  strokeWidth={2}
+                  absoluteStrokeWidth
+                />
               </Pressable>
 
               {mode === 'capture' ? (
@@ -333,11 +345,21 @@ export function CameraProvider({ children }: CameraProviderProps) {
                 onPress={() => setIsTorchEnabled((prev) => !prev)}
                 style={[styles.secondaryAction, isTablet && styles.secondaryActionTablet]}
               >
-                <Icon
-                  name={isTorchEnabled ? 'flash' : 'flash-outline'}
-                  variant="onBrand"
-                  size={22}
-                />
+                {isTorchEnabled ? (
+                  <Flashlight
+                    size={22}
+                    color={theme.colors.icon.onBrand}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
+                ) : (
+                  <FlashlightOff
+                    size={22}
+                    color={theme.colors.icon.onBrand}
+                    strokeWidth={2}
+                    absoluteStrokeWidth
+                  />
+                )}
               </Pressable>
             </View>
           </View>

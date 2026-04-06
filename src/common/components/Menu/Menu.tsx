@@ -1,3 +1,4 @@
+import type { LucideIcon } from 'lucide-react-native';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
@@ -7,7 +8,7 @@ import {
   type LayoutChangeEvent,
   type ViewStyle,
 } from 'react-native';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import { styles } from './Menu.styles';
 import type { MenuProps } from './Menu.types';
@@ -36,6 +37,7 @@ interface AnchorLayout {
  * ```
  */
 export function Menu({ visible, onDismiss, anchor, items }: MenuProps) {
+  const { theme } = useUnistyles();
   const anchorRef = useRef<View>(null);
   const [anchorLayout, setAnchorLayout] = useState<AnchorLayout | null>(null);
   const [menuHeight, setMenuHeight] = useState(0);
@@ -101,14 +103,23 @@ export function Menu({ visible, onDismiss, anchor, items }: MenuProps) {
                   accessibilityState={{ disabled: item.disabled }}
                   style={[styles.item, item.disabled && styles.itemDisabled]}
                 >
-                  {item.icon && (
-                    <Icon
-                      name={item.icon}
-                      sizeVariant="md"
-                      destructive={item.destructive}
-                      variant={item.destructive ? undefined : 'secondary'}
-                    />
-                  )}
+                  {item.icon
+                    ? (() => {
+                        const ItemIcon = item.icon as LucideIcon;
+                        return (
+                          <ItemIcon
+                            size={theme.metrics.iconSize.md}
+                            color={
+                              item.destructive
+                                ? theme.colors.state.error
+                                : theme.colors.icon.secondary
+                            }
+                            strokeWidth={2}
+                            absoluteStrokeWidth
+                          />
+                        );
+                      })()
+                    : null}
                   <Text
                     variant="body"
                     style={item.destructive ? styles.destructiveText : styles.itemText}

@@ -76,8 +76,6 @@ export { MonthSelector } from './MonthSelector';
 export type { MonthSelectorProps } from './MonthSelector';
 
 // Typography
-export { Icon } from './Icon';
-export type { IconProps, IconVariant } from './Icon';
 export { Text } from './Text';
 export type { TextProps, TextVariant, TextWeight, TextAlign } from './Text';
 

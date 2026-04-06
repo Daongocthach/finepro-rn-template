@@ -1,7 +1,8 @@
+import { ChevronDown } from 'lucide-react-native';
 import { useCallback, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import { vs } from '@/theme/metrics';
 import { styles } from './Accordion.styles';
@@ -16,6 +17,7 @@ function AccordionSection({
   isExpanded: boolean;
   onToggle: () => void;
 }) {
+  const { theme } = useUnistyles();
   const rotation = useSharedValue(isExpanded ? 1 : 0);
   const contentHeight = useSharedValue(isExpanded ? 1 : 0);
 
@@ -51,7 +53,12 @@ function AccordionSection({
           {item.title}
         </Text>
         <Animated.View style={chevronStyle}>
-          <Icon name="chevron-down" sizeVariant="lg" variant="secondary" />
+          <ChevronDown
+            size={theme.metrics.iconSize.lg}
+            color={theme.colors.icon.secondary}
+            strokeWidth={2}
+            absoluteStrokeWidth
+          />
         </Animated.View>
       </Pressable>
       <Animated.View style={[styles.content, contentStyle]}>{item.content}</Animated.View>

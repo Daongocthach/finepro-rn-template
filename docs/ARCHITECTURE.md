@@ -6,21 +6,21 @@ This is a production-grade React Native Expo template designed as a reusable fou
 
 ## Tech Stack
 
-| Layer        | Technology                                      |
-| ------------ | ----------------------------------------------- |
-| Framework    | React Native 0.83.2 + Expo SDK 55               |
-| Routing      | expo-router (file-based, typed routes)          |
-| Language     | TypeScript 5.9 (strict)                         |
-| Styling      | react-native-unistyles 3.x                      |
-| Server State | @tanstack/react-query + MMKV persistence        |
-| Client State | Zustand                                         |
-| Backend      | Backend-agnostic auth and API layer             |
-| API Client   | Axios with auth interceptors                    |
-| i18n         | react-i18next (EN/AR, RTL support)              |
-| Storage      | react-native-mmkv                               |
-| Forms        | react-hook-form + Zod                           |
-| Testing      | Jest + jest-expo                                |
-| Linting      | ESLint 9 flat config                            |
+| Layer        | Technology                               |
+| ------------ | ---------------------------------------- |
+| Framework    | React Native 0.83.2 + Expo SDK 55        |
+| Routing      | expo-router (file-based, typed routes)   |
+| Language     | TypeScript 5.9 (strict)                  |
+| Styling      | react-native-unistyles 3.x               |
+| Server State | @tanstack/react-query + MMKV persistence |
+| Client State | Zustand                                  |
+| Backend      | Backend-agnostic auth and API layer      |
+| API Client   | Axios with auth interceptors             |
+| i18n         | react-i18next (EN/AR, RTL support)       |
+| Storage      | react-native-mmkv                        |
+| Forms        | react-hook-form + Zod                    |
+| Testing      | Jest + jest-expo                         |
+| Linting      | ESLint 9 flat config                     |
 
 ## Directory Structure
 

@@ -1,11 +1,12 @@
 import { BottomSheetBackdrop, BottomSheetFlatList, BottomSheetModal } from '@gorhom/bottom-sheet';
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
 import { Image } from 'expo-image';
+import { Check, ChevronDown } from 'lucide-react-native';
 import { useCallback, useMemo, useRef } from 'react';
 import { Keyboard, Pressable, View } from 'react-native';
 import type { ListRenderItem } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { SearchBar } from '@/common/components/SearchBar';
 import { Text } from '@/common/components/Text';
 import { UniActivityIndicator } from '@/common/components/uni';
@@ -51,6 +52,7 @@ export function Select({
   children,
   triggerVariant,
 }: SelectProps) {
+  const { theme } = useUnistyles();
   const bottomSheetRef = useRef<BottomSheetModal>(null);
   const resolvedSnapPoints = useMemo(() => snapPoints ?? ['50%', '70%'], [snapPoints]);
   const insets = useSafeAreaInsets();
@@ -115,11 +117,18 @@ export function Select({
               {item.label}
             </Text>
           </View>
-          {isSelected ? <Icon name="checkmark" sizeVariant="lg" variant="primary" /> : null}
+          {isSelected ? (
+            <Check
+              size={theme.metrics.iconSize.lg}
+              color={theme.colors.icon.primary}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
+          ) : null}
         </Pressable>
       );
     },
-    [handleSelect, readOnly, value]
+    [handleSelect, readOnly, theme, value]
   );
 
   const handleEndReached = useCallback(() => {
@@ -135,8 +144,8 @@ export function Select({
           <View style={styles.footerLoader}>
             <UniActivityIndicator
               size="small"
-              uniProps={(theme) => ({
-                color: theme.colors.brand.primary,
+              uniProps={(unistylesTheme) => ({
+                color: unistylesTheme.colors.brand.primary,
               })}
             />
           </View>
@@ -193,7 +202,12 @@ export function Select({
                 {displayText}
               </Text>
             </View>
-            <Icon name="chevron-down" sizeVariant="md" variant="muted" />
+            <ChevronDown
+              size={theme.metrics.iconSize.md}
+              color={theme.colors.icon.muted}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
           </>
         )}
       </Pressable>

@@ -1,6 +1,7 @@
+import { Check } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import Animated, { useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import { styles } from './Checkbox.styles';
 import type { CheckboxProps } from './Checkbox.types';
@@ -28,6 +29,7 @@ export function Checkbox({
   size = 'md',
   label,
 }: CheckboxProps) {
+  const { theme } = useUnistyles();
   styles.useVariants({
     size,
     checked: checked && !indeterminate,
@@ -54,7 +56,14 @@ export function Checkbox({
           {indeterminate ? (
             <View style={styles.indeterminateDash} />
           ) : (
-            checked && <Icon name="checkmark" size={ICON_SIZES[size] ?? 14} variant="primary" />
+            checked && (
+              <Check
+                size={ICON_SIZES[size] ?? 14}
+                color={theme.colors.icon.primary}
+                strokeWidth={2.5}
+                absoluteStrokeWidth
+              />
+            )
           )}
         </Animated.View>
       </View>

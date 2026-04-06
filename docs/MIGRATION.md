@@ -162,9 +162,7 @@ All image assets live in `assets/images/`. Replace every file in place, keeping 
 - [ ] Replace `icon.png` — 1024x1024 px, PNG with transparency
 - [ ] Replace `splash-icon.png` — your logo centered, PNG with transparency
 - [ ] Replace `adaptive-icon.png` — Android adaptive icon foreground, 1024x1024 px
-- [ ] Replace `favicon.png` — 48x48 px for web
-
-> **Common Mistake:** Changing asset filenames and forgetting to update `app.json`. Always keep filenames identical when replacing assets.
+  > **Common Mistake:** Changing asset filenames and forgetting to update `app.json`. Always keep filenames identical when replacing assets.
 
 ---
 
@@ -690,10 +688,8 @@ i18n.use(initReactI18next).init({
 ```typescript
 // Remove these lines:
 // const isArabic = i18n.language === 'ar';
-// if (Platform.OS !== 'web') {
-//   I18nManager.allowRTL(isArabic);
-//   I18nManager.forceRTL(isArabic);
-// }
+// I18nManager.allowRTL(isArabic);
+// I18nManager.forceRTL(isArabic);
 ```
 
 - [ ] Step 4: Update `app.json` to remove Arabic from `CFBundleLocalizations` and `supportedLocales`.
@@ -1072,8 +1068,8 @@ export default function ProductsScreen() {
 **File:** `app/(main)/(tabs)/_layout.tsx`
 
 ```typescript
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from 'expo-router';
+import { House, LayoutGrid, Settings } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { useUnistyles } from 'react-native-unistyles';
 
@@ -1097,21 +1093,21 @@ export default function TabLayout() {
         name="index"
         options={{
           title: t('tabs.home'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <House size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="products"
         options={{
           title: t('tabs.products'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="grid" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <LayoutGrid size={size} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
           title: t('tabs.settings'),
-          tabBarIcon: ({ color, size }) => <Ionicons name="settings" size={size} color={color} />,
+          tabBarIcon: ({ color, size }) => <Settings size={size} color={color} />,
         }}
       />
     </Tabs>
@@ -2015,7 +2011,7 @@ Run through every item below after completing migration. No item should be skipp
 ### Navigation Verification
 
 - [ ] All new tab screens are registered in `app/(main)/(tabs)/_layout.tsx`
-- [ ] Tab icons are set using `@expo/vector-icons`
+- [ ] Tab icons are set using `lucide-react-native` or the project `Icon` wrapper
 - [ ] Tab labels use `t()` translation keys
 - [ ] Auth screens are unreachable when user is authenticated
 - [ ] Protected screens are unreachable when user is not authenticated

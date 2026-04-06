@@ -1,6 +1,7 @@
+import { CircleX, Search } from 'lucide-react-native';
 import { useState } from 'react';
 import { View, Pressable } from 'react-native';
-import { Icon } from '@/common/components/Icon';
+import { useUnistyles } from 'react-native-unistyles';
 import { UniActivityIndicator, UniTextInput } from '@/common/components/uni';
 import { styles } from './SearchBar.styles';
 import type { SearchBarProps } from './SearchBar.types';
@@ -28,6 +29,7 @@ export function SearchBar({
   autoFocus = false,
   size = 'md',
 }: SearchBarProps) {
+  const { theme } = useUnistyles();
   const [focused, setFocused] = useState(false);
   styles.useVariants({ size, focused });
 
@@ -38,7 +40,12 @@ export function SearchBar({
 
   return (
     <View style={styles.container}>
-      <Icon name="search" sizeVariant="md" variant="muted" />
+      <Search
+        size={theme.metrics.iconSize.md}
+        color={theme.colors.icon.muted}
+        strokeWidth={2}
+        absoluteStrokeWidth
+      />
       <UniTextInput
         style={styles.input}
         value={value}
@@ -51,12 +58,14 @@ export function SearchBar({
         autoFocus={autoFocus}
         autoCorrect={false}
         accessibilityLabel={placeholder ?? 'Search'}
-        uniProps={(theme) => ({ placeholderTextColor: theme.colors.text.muted })}
+        uniProps={(unistylesTheme) => ({
+          placeholderTextColor: unistylesTheme.colors.text.muted,
+        })}
       />
       {loading ? (
         <UniActivityIndicator
           size="small"
-          uniProps={(theme) => ({ color: theme.colors.text.muted })}
+          uniProps={(unistylesTheme) => ({ color: unistylesTheme.colors.text.muted })}
         />
       ) : (
         value.length > 0 && (
@@ -66,7 +75,12 @@ export function SearchBar({
             accessibilityRole="button"
             accessibilityLabel="Clear search"
           >
-            <Icon name="close-circle" sizeVariant="md" variant="muted" />
+            <CircleX
+              size={theme.metrics.iconSize.md}
+              color={theme.colors.icon.muted}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
           </Pressable>
         )
       )}

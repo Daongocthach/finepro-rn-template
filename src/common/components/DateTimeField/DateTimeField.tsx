@@ -1,5 +1,6 @@
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet';
+import { Calendar, Clock3 } from 'lucide-react-native';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
@@ -7,7 +8,6 @@ import DatePicker from 'react-native-date-picker';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUnistyles } from 'react-native-unistyles';
 import { Button } from '@/common/components/Button';
-import { Icon } from '@/common/components/Icon';
 import { Text } from '@/common/components/Text';
 import { styles } from './DateTimeField.styles';
 import type { DateTimeFieldMode, DateTimeFieldProps } from './DateTimeField.types';
@@ -218,11 +218,16 @@ export function DateTimeField({
         >
           {displayText}
         </Text>
-        <Icon
-          name={mode === 'time' ? 'time-outline' : 'calendar-outline'}
-          variant="primary"
-          size={20}
-        />
+        {mode === 'time' ? (
+          <Clock3 size={20} color={theme.colors.icon.primary} strokeWidth={2} absoluteStrokeWidth />
+        ) : (
+          <Calendar
+            size={20}
+            color={theme.colors.icon.primary}
+            strokeWidth={2}
+            absoluteStrokeWidth
+          />
+        )}
       </Pressable>
 
       {error ? (

@@ -1,7 +1,8 @@
+import { ChevronLeft, Cloud, CloudOff } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 import { useAuthStore } from '@/providers/auth/authStore';
-import { Icon } from '../Icon';
 import { Text } from '../Text';
 import { styles } from './TabsHeader.styles';
 import type { TabsHeaderProps } from './TabsHeader.types';
@@ -14,14 +15,13 @@ export function TabsHeader({
   backDisabled = false,
 }: TabsHeaderProps) {
   const { t } = useTranslation();
+  const { theme } = useUnistyles();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  let syncIconName: 'cloud-offline-outline' | 'cloud-outline' = 'cloud-outline';
   let syncLabel = t('common.syncStatus.syncNow');
   let syncVariant: 'secondary' | 'muted' = 'secondary';
 
   if (!isAuthenticated) {
-    syncIconName = 'cloud-offline-outline';
     syncLabel = t('common.syncStatus.loginToSync');
     syncVariant = 'muted';
   }
@@ -36,7 +36,12 @@ export function TabsHeader({
         onPress={onBack}
         style={[styles.iconButton, backDisabled ? styles.iconButtonDisabled : null]}
       >
-        <Icon name="chevron-back" variant="secondary" size={20} />
+        <ChevronLeft
+          size={20}
+          color={theme.colors.icon.secondary}
+          strokeWidth={2}
+          absoluteStrokeWidth
+        />
       </Pressable>
       <Text variant="h3" style={styles.title} numberOfLines={1}>
         {title}
@@ -52,7 +57,21 @@ export function TabsHeader({
           }}
           style={styles.iconButton}
         >
-          <Icon name={syncIconName} variant={syncVariant} size={20} />
+          {isAuthenticated ? (
+            <Cloud
+              size={20}
+              color={theme.colors.icon[syncVariant]}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
+          ) : (
+            <CloudOff
+              size={20}
+              color={theme.colors.icon[syncVariant]}
+              strokeWidth={2}
+              absoluteStrokeWidth
+            />
+          )}
         </Pressable>
       ) : (
         <View style={styles.iconButtonPlaceholder} />
