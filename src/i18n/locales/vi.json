@@ -1,0 +1,274 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "done": "Xong",
+    "retry": "Thử lại",
+    "search": "Tìm kiếm",
+    "settings": "Cài đặt",
+    "close": "Đóng",
+    "edit": "Chỉnh sửa",
+    "submit": "Gửi",
+    "ok": "OK",
+    "syncStatus": {
+      "syncNow": "Đồng bộ ngay",
+      "loginToSync": "Đăng nhập để đồng bộ"
+    }
+  },
+  "tabs": {
+    "home": "Trang chủ",
+    "stats": "Thống kê",
+    "add": "Thêm",
+    "favorites": "Yêu thích",
+    "profile": "Hồ sơ",
+    "showcase": "Trưng bày",
+    "settings": "Cài đặt"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "english": "Tiếng Anh",
+    "vietnamese": "Tiếng Việt"
+  },
+  "header": {
+    "back": "Quay lại",
+    "brandName": "FinePro",
+    "toggleTheme": "Đổi giao diện",
+    "themeSystem": "Theo hệ thống",
+    "themeLight": "Sáng",
+    "themeDark": "Tối"
+  },
+  "home": {
+    "welcome": "Chào mừng",
+    "subtitle": "Ứng dụng của bạn đã sẵn sàng.",
+    "greetingMorning": "Chào buổi sáng",
+    "greetingAfternoon": "Chào buổi chiều",
+    "greetingEvening": "Chào buổi tối",
+    "userName": "Alex Johnson",
+    "searchPlaceholder": "Tìm bất kỳ thứ gì...",
+    "quickActions": {
+      "send": "Gửi",
+      "receive": "Nhận",
+      "pay": "Thanh toán",
+      "more": "Thêm"
+    },
+    "featured": {
+      "title": "Nổi bật",
+      "seeAll": "Xem tất cả",
+      "card1Title": "Hệ thống thiết kế",
+      "card1Subtitle": "Xây UI nhất quán với token",
+      "card2Title": "Phân tích",
+      "card2Subtitle": "Theo dõi chỉ số hiệu năng",
+      "card3Title": "Tích hợp",
+      "card3Subtitle": "Kết nối công cụ bạn yêu thích"
+    },
+    "stats": {
+      "projects": "Dự án",
+      "tasks": "Công việc",
+      "messages": "Tin nhắn"
+    },
+    "recentActivity": {
+      "title": "Hoạt động gần đây",
+      "seeAll": "Xem tất cả",
+      "item1Title": "Đã tạo dự án mới",
+      "item1Subtitle": "Thiết kế lại ứng dụng di động",
+      "item1Time": "2 phút trước",
+      "item2Title": "Đã hoàn thành công việc",
+      "item2Subtitle": "Cập nhật token thiết kế",
+      "item2Time": "15 phút trước",
+      "item3Title": "Đã nhận tin nhắn",
+      "item3Subtitle": "Sarah đã chia sẻ một tệp",
+      "item3Time": "1 giờ trước",
+      "item4Title": "Thanh toán đã xử lý",
+      "item4Subtitle": "Hóa đơn #1042 đã thanh toán",
+      "item4Time": "3 giờ trước"
+    }
+  },
+  "homeScreen": {
+    "greetingTitle": "Xin chào, {{name}}",
+    "greetings": {
+      "morning": "Chào buổi sáng",
+      "afternoon": "Chào buổi chiều",
+      "evening": "Chào buổi tối"
+    }
+  },
+  "welcomeScreen": {
+    "title": "Chào mừng"
+  },
+  "manualFoodEntry": {
+    "title": "Nhập món ăn"
+  },
+  "application": {
+    "applyTitle": "Nộp đơn",
+    "form": {
+      "successPageTitle": "Đã gửi đơn thành công"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "appearance": "Giao diện",
+    "darkMode": "Chế độ tối",
+    "language": "Ngôn ngữ",
+    "notifications": "Thông báo",
+    "haptics": "Phản hồi rung",
+    "about": "Giới thiệu",
+    "version": "Phiên bản",
+    "privacy": "Chính sách riêng tư",
+    "terms": "Điều khoản dịch vụ",
+    "profile": {
+      "name": "Alex Johnson",
+      "email": "alex@example.com",
+      "editProfile": "Chỉnh sửa hồ sơ"
+    },
+    "sections": {
+      "account": "Tài khoản",
+      "preferences": "Tùy chọn",
+      "support": "Hỗ trợ",
+      "danger": "Khu vực nguy hiểm"
+    },
+    "account": {
+      "profile": "Hồ sơ",
+      "profileSubtitle": "Quản lý thông tin cá nhân",
+      "security": "Bảo mật",
+      "securitySubtitle": "Mật khẩu & xác thực",
+      "billing": "Thanh toán",
+      "billingSubtitle": "Gói dịch vụ & phương thức thanh toán",
+      "notifications": "Thông báo",
+      "notificationsSubtitle": "Tùy chọn thông báo đẩy & email"
+    },
+    "preferences": {
+      "pushNotifications": "Thông báo đẩy",
+      "appIcon": "Biểu tượng ứng dụng",
+      "appIconSubtitle": "Chọn kiểu biểu tượng"
+    },
+    "support": {
+      "helpCenter": "Trung tâm trợ giúp",
+      "helpCenterSubtitle": "Câu hỏi thường gặp & hướng dẫn",
+      "feedback": "Gửi phản hồi",
+      "feedbackSubtitle": "Giúp chúng tôi cải thiện",
+      "aboutSubtitle": "Phiên bản & thông tin pháp lý"
+    },
+    "danger": {
+      "logout": "Đăng xuất",
+      "logoutSubtitle": "Đăng xuất khỏi tài khoản của bạn",
+      "deleteAccount": "Xóa tài khoản",
+      "deleteAccountSubtitle": "Xóa vĩnh viễn dữ liệu của bạn"
+    }
+  },
+  "showcase": {
+    "title": "Trưng bày UI",
+    "subtitle": "Một màn hình duy nhất để thử các component dùng chung và trạng thái tương tác.",
+    "avatarLabel": "Ảnh đại diện trưng bày",
+    "profileTitle": "Khu vực thử component",
+    "profileSubtitle": "Dùng tab này để kiểm tra nhanh spacing, motion và hành vi theme.",
+    "statusReady": "Sẵn sàng để kiểm thử",
+    "sections": {
+      "actions": "Hành động",
+      "inputs": "Nhập liệu",
+      "selection": "Lựa chọn",
+      "display": "Hiển thị",
+      "feedback": "Phản hồi"
+    },
+    "actions": {
+      "primary": "Hành động chính",
+      "secondary": "Phụ",
+      "outline": "Viền",
+      "ghost": "Ghost",
+      "loading": "Giả lập đang tải"
+    },
+    "metrics": {
+      "completion": "Độ phủ",
+      "completionValue": "78%",
+      "components": "Bộ dùng chung",
+      "componentsValue": "15+",
+      "componentsHint": "Nút, form, phản hồi và các primitive bố cục"
+    },
+    "searchPlaceholder": "Tìm component...",
+    "emailLabel": "Email nhận biên lai",
+    "emailPlaceholder": "name@example.com",
+    "emailHelper": "Hữu ích khi bạn muốn kiểm tra helper text và căn chỉnh icon.",
+    "categoryLabel": "Danh mục chi tiêu",
+    "categoryPlaceholder": "Chọn danh mục",
+    "notesLabel": "Ghi chú",
+    "notesPlaceholder": "Viết ghi chú ngắn cho giao dịch mẫu này...",
+    "selection": {
+      "checkbox": "Bật cảnh báo ngân sách",
+      "notifications": "Thông báo đẩy"
+    },
+    "list": {
+      "primaryTitle": "Ngân sách hàng tháng",
+      "primarySubtitle": "Kiểm tra touch pattern, căn chỉnh và vị trí phụ kiện",
+      "secondaryTitle": "Bảng phân tích",
+      "secondarySubtitle": "Huy hiệu đếm và nội dung trộn trái/phải"
+    },
+    "accordion": {
+      "tokensTitle": "Token thiết kế",
+      "tokensBody": "Khoảng cách, typography và màu sắc cần đồng nhất giữa theme sáng và tối.",
+      "formsTitle": "Điều khiển form",
+      "formsBody": "Dùng phần này để kiểm tra trạng thái focus, lựa chọn và tương tác bottom-sheet."
+    },
+    "loadingMessage": "Đang tải trạng thái component",
+    "empty": {
+      "title": "Chưa chọn bản xem trước",
+      "message": "Chọn bất kỳ điều khiển nào ở trên để kiểm tra spacing và hành vi tương tác.",
+      "action": "Thử lại"
+    },
+    "options": {
+      "groceries": "Tạp hóa",
+      "transport": "Di chuyển",
+      "utilities": "Tiện ích",
+      "day": "Ngày",
+      "week": "Tuần",
+      "month": "Tháng",
+      "smartMode": "Chế độ thông minh",
+      "manualMode": "Chế độ thủ công"
+    }
+  },
+  "errorBoundary": {
+    "title": "Đã xảy ra lỗi",
+    "message": "Ứng dụng gặp lỗi không mong muốn. Vui lòng thử lại.",
+    "retry": "Thử lại"
+  },
+  "network": {
+    "offline": "Có vẻ bạn đang ngoại tuyến",
+    "online": "Đã trực tuyến lại"
+  },
+  "camera": {
+    "title": "Máy ảnh",
+    "barcodeTitle": "Quét mã vạch",
+    "barcodeHint": "Canh mã vạch vào trong khung.",
+    "permissionDenied": "Cần cấp quyền truy cập máy ảnh.",
+    "captureFailed": "Không thể chụp ảnh.",
+    "scanFailed": "Không thể đọc mã vạch.",
+    "actions": {
+      "close": "Đóng máy ảnh",
+      "flip": "Đổi camera",
+      "capture": "Chụp ảnh",
+      "toggleFlash": "Bật hoặc tắt đèn flash"
+    }
+  },
+  "notFound": {
+    "title": "Không tìm thấy",
+    "message": "Màn hình này không tồn tại.",
+    "goHome": "Về màn hình chính"
+  },
+  "errors": {
+    "title": "Lỗi",
+    "generic": "Đã có lỗi xảy ra. Vui lòng thử lại.",
+    "network": "Lỗi mạng. Hãy kiểm tra kết nối của bạn.",
+    "auth": "Xác thực thất bại."
+  },
+  "validation": {
+    "required": "Trường này là bắt buộc",
+    "emailInvalid": "Vui lòng nhập email hợp lệ",
+    "passwordMin": "Mật khẩu phải có ít nhất 8 ký tự",
+    "passwordMismatch": "Mật khẩu không khớp",
+    "usernameMin": "Tên người dùng phải có ít nhất 3 ký tự",
+    "usernameMax": "Tên người dùng tối đa 20 ký tự",
+    "usernameFormat": "Tên người dùng chỉ được chứa chữ cái, số và dấu gạch dưới"
+  }
+}
