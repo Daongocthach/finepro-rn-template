@@ -622,8 +622,7 @@ Use try/catch in service functions and mutation handlers:
 ```typescript
 // In a service function - throw the error, let the caller handle it
 export async function fetchUser(id: string): Promise<User> {
-  const { data, error } = await supabase.from('users').select('*').eq('id', id).single();
-  if (error) throw error;
+  const { data } = await api.get<User>(`/users/${id}`);
   return data;
 }
 

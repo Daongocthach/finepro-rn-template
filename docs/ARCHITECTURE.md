@@ -14,7 +14,7 @@ This is a production-grade React Native Expo template designed as a reusable fou
 | Styling      | react-native-unistyles 3.x                      |
 | Server State | @tanstack/react-query + MMKV persistence        |
 | Client State | Zustand                                         |
-| Backend      | Supabase (graceful degradation if unconfigured) |
+| Backend      | Backend-agnostic auth and API layer             |
 | API Client   | Axios with auth interceptors                    |
 | i18n         | react-i18next (EN/AR, RTL support)              |
 | Storage      | react-native-mmkv                               |
@@ -37,7 +37,6 @@ src/
 │       └── types/
 ├── hooks/                 # Global hooks: useBottomPadding, useNetworkStatus, useScreenDimensions, useProtectedRoute
 ├── i18n/                  # Translation files and config
-├── integrations/          # Third-party clients (Supabase)
 ├── providers/             # React Query provider, auth store
 ├── services/api/          # Axios API client with interceptors
 ├── theme/                 # Semantic color tokens, metrics, fonts
@@ -52,17 +51,13 @@ app/                       # Expo Router file-based routing
 
 ## Key Patterns
 
-### Graceful Supabase Init
-
-The app boots and functions even without Supabase environment variables configured. A warning is logged in dev, and auth features simply won't activate.
-
 ### Auth via Zustand (No Provider Wrapper)
 
 Authentication state is managed by a Zustand store (`useAuthStore`) with a `useAuthInit()` hook called in the root layout. No React context provider needed.
 
 ### ErrorBoundary
 
-Wraps the entire app. Catches React rendering errors, shows a recovery UI, and exposes an `onError` callback for crash reporting (Sentry-ready).
+Wraps the entire app. Catches React rendering errors, shows a recovery UI, and exposes an `onError` callback for app-specific reporting hooks.
 
 ### API Client
 

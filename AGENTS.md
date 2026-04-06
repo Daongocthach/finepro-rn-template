@@ -126,8 +126,6 @@ rncopilot/
 │   │   └── locales/
 │   │       ├── en.json         # English translations
 │   │       └── ar.json         # Arabic translations
-│   ├── integrations/
-│   │   └── supabase.ts         # Supabase client (null if env not set)
 │   ├── providers/
 │   │   ├── index.ts            # QueryProvider export
 │   │   ├── auth/
@@ -357,11 +355,10 @@ Test environment is configured in `jest.config.ts` and `jest.setup.ts`. Run `npm
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and fill in values. The app boots without Supabase configured (graceful degradation). Variables are accessed through `src/config/env.ts`:
+Copy `.env.example` to `.env` and fill in values. Variables are accessed through `src/config/env.ts`:
 
 ```typescript
 import { env } from '@/config/env';
-env.supabaseUrl;
 env.apiBaseUrl;
 env.appEnv; // 'development' | 'staging' | 'production'
 env.isDev; // boolean
@@ -369,10 +366,6 @@ env.isProd; // boolean
 ```
 
 All env vars use the `EXPO_PUBLIC_` prefix to be accessible on the client.
-
-### Supabase
-
-The Supabase client in `src/integrations/supabase.ts` returns `null` if env vars are not set. Service functions that use Supabase (like `src/features/auth/services/authService.ts`) assume Supabase is configured. The `useAuthStore` handles the null case gracefully.
 
 ### Theme
 

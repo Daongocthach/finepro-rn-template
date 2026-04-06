@@ -14,7 +14,6 @@ This template ships with the parts most projects end up rebuilding anyway:
 - light and dark themes with `react-native-unistyles`
 - React Query for server state
 - Zustand for client state
-- Supabase integration with graceful degradation when unconfigured
 - English and Arabic i18n with RTL support
 - MMKV storage
 - form handling with React Hook Form and Zod v4
@@ -38,7 +37,7 @@ This template ships with the parts most projects end up rebuilding anyway:
 | Styling      | `react-native-unistyles` 3.x      |
 | Server state | `@tanstack/react-query`           |
 | Client state | Zustand                           |
-| Backend      | Supabase                          |
+| Backend      | Backend-agnostic template         |
 | Networking   | Axios                             |
 | i18n         | `react-i18next`                   |
 | Storage      | `react-native-mmkv`               |
@@ -48,7 +47,7 @@ This template ships with the parts most projects end up rebuilding anyway:
 
 ## Included out of the box
 
-- Authentication foundation with Zustand auth store and Supabase-backed services
+- Authentication foundation with Zustand auth store and backend-agnostic service stubs
 - 30+ reusable UI components in [`src/common/components`](src/common/components)
 - API client with request/response interceptors
 - environment config in [`src/config/env.ts`](src/config/env.ts)
@@ -73,7 +72,7 @@ cp .env.example .env
 npm start
 ```
 
-The app can boot without Supabase credentials. Auth-related features simply stay inactive until valid env values are provided.
+The app boots without any backend-specific credentials. Wire your own auth and API layer as you migrate the template.
 
 ## Development commands
 
@@ -119,10 +118,7 @@ Run it before every commit.
 Copy [`.env.example`](.env.example) to `.env` and update the values you need:
 
 ```bash
-EXPO_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-EXPO_PUBLIC_SUPABASE_PUBLISHED_KEY=your-anon-key
 EXPO_PUBLIC_API_BASE_URL=https://api.example.com
-EXPO_PUBLIC_SENTRY_DSN=
 EXPO_PUBLIC_APP_ENV=development
 ```
 
@@ -139,7 +135,6 @@ These values are read through [`src/config/env.ts`](src/config/env.ts).
 │   ├── features/                # Feature modules
 │   ├── hooks/                   # Global hooks
 │   ├── i18n/                    # Translation setup and locale files
-│   ├── integrations/            # Third-party clients such as Supabase
 │   ├── providers/               # Query provider and auth store
 │   ├── services/api/            # Axios client
 │   ├── theme/                   # Tokens, fonts, metrics, theme config

@@ -4,7 +4,7 @@
  * Environment Variable Check
  *
  * Warns about missing or placeholder env vars.
- * Does not fail — Supabase is optional.
+ * Does not fail, because some integrations are optional.
  *
  * Usage: npm run check-env
  */

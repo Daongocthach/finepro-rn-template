@@ -14,7 +14,7 @@ Language: TypeScript 5.9 with strict mode enabled
 Styling: react-native-unistyles 3.x (design token system with light/dark modes)
 Server State: @tanstack/react-query (data fetching, caching, mutations)
 Client State: Zustand (auth session, UI state, user preferences)
-Backend: Supabase (auth + database) with graceful degradation if unconfigured
+Backend: Backend-agnostic auth + API integration
 HTTP Client: Axios with request/response interceptors
 i18n: react-i18next with English and Arabic locales, RTL support
 Storage: react-native-mmkv (fast synchronous persistent storage)
@@ -56,7 +56,6 @@ src/
     config.ts                 i18next init (reads saved language from MMKV, falls back to device locale)
     locales/en.json           English translations
     locales/ar.json           Arabic translations
-  integrations/supabase.ts    Supabase client (null if env vars missing)
   providers/
     index.ts                  QueryProvider export
     auth/authStore.ts         useAuthStore (Zustand) + useAuthInit hook

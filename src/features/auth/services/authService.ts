@@ -1,10 +1,6 @@
 // TODO: Implement your auth service functions here
 // This file provides the API for authentication operations.
 //
-// Example with Supabase:
-//   import { supabase } from '@/integrations/supabase';
-//   export async function login({ email, password }) { ... }
-//
 // Example with custom API:
 //   import { api } from '@/services/api';
 //   export async function login({ email, password }) { ... }

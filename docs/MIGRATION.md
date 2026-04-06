@@ -712,21 +712,16 @@ i18n.use(initReactI18next).init({
 cp .env.example .env
 ```
 
-- [ ] Step 2: Fill in your Supabase project credentials in `.env`:
+- [ ] Step 2: Fill in your project environment variables in `.env`:
 
 **File:** `.env`
 
 ```bash
-EXPO_PUBLIC_SUPABASE_URL=https://abcdefghijklmn.supabase.co
-EXPO_PUBLIC_SUPABASE_PUBLISHED_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 EXPO_PUBLIC_API_BASE_URL=https://api.yourapp.com
-EXPO_PUBLIC_SENTRY_DSN=https://abc123@o123456.ingest.sentry.io/789
 EXPO_PUBLIC_APP_ENV=development
 ```
 
 > **Common Mistake:** Committing `.env` to git. Verify `.gitignore` contains `.env` (it does in this template). Never commit real credentials.
-
-The Supabase client at `src/integrations/supabase.ts` reads these values through `src/config/env.ts`. If either credential is missing, Supabase initializes as `null` and the app boots normally without auth features — this is intentional graceful degradation.
 
 ### 5.2 Add New Environment Variables
 
@@ -736,10 +731,7 @@ When your app needs additional configuration values (Stripe keys, analytics IDs,
 
 ```typescript
 interface EnvConfig {
-  supabaseUrl: string;
-  supabaseAnonKey: string;
   apiBaseUrl: string;
-  sentryDsn: string;
   appEnv: 'development' | 'staging' | 'production';
   isDev: boolean;
   isProd: boolean;
@@ -784,7 +776,7 @@ const api = axios.create({
 });
 ```
 
-To add a custom token format (if not using Supabase Bearer tokens):
+To add a custom token format:
 
 ```typescript
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
@@ -799,20 +791,9 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 });
 ```
 
-### 5.4 Switch from Supabase to a Different Backend
+### 5.4 Connect Your Own Backend
 
-If you are not using Supabase (e.g., using a custom REST API, Firebase, or AWS Amplify):
-
-- [ ] Step 1: Remove Supabase env vars from `.env` and `.env.example`.
-
-- [ ] Step 2: Update `src/integrations/supabase.ts` — replace the file with a stub or delete it if unused:
-
-```typescript
-// src/integrations/supabase.ts - stub when not using Supabase
-export const supabase = null;
-```
-
-- [ ] Step 3: Replace `src/features/auth/services/authService.ts` with calls to your own API:
+This template is backend-agnostic. Replace `src/features/auth/services/authService.ts` with calls to your own API or SDK:
 
 ```typescript
 import { api } from '@/services/api/client';
@@ -837,7 +818,8 @@ export async function getSession() {
 }
 ```
 
-- [ ] Step 4: Update `src/providers/auth/authStore.ts` to remove the `supabase.auth.onAuthStateChange` listener and replace session type from Supabase's `Session` to your own session interface.
+- [ ] Step 1: Update `src/providers/auth/authStore.ts` with your real session bootstrap logic.
+- [ ] Step 2: Extend the state shape if your backend returns additional user or token fields.
 
 ---
 
@@ -847,11 +829,9 @@ export async function getSession() {
 
 **File:** `src/providers/auth/authStore.ts`
 
-The template's `AuthState` uses Supabase's `User` and `Session` types. To extend with app-specific user data:
+The template's `AuthState` already uses local interfaces. Extend them with app-specific user data as needed:
 
 ```typescript
-import type { User, Session } from '@supabase/supabase-js';
-
 // Add your app-specific user profile type:
 interface UserProfile {
   displayName: string;
@@ -861,13 +841,13 @@ interface UserProfile {
 }
 
 interface AuthState {
-  user: User | null;
-  session: Session | null;
+  user: AuthUser | null;
+  session: AuthSession | null;
   profile: UserProfile | null; // Add this
   isLoading: boolean;
   isAuthenticated: boolean;
-  setUser: (user: User | null) => void;
-  setSession: (session: Session | null) => void;
+  setUser: (user: AuthUser | null) => void;
+  setSession: (session: AuthSession | null) => void;
   setProfile: (profile: UserProfile | null) => void; // Add this
   setLoading: (isLoading: boolean) => void;
   clearSession: () => void;
@@ -956,14 +936,10 @@ import * as Google from 'expo-auth-session/providers/google';
 import * as AppleAuthentication from 'expo-apple-authentication';
 
 export async function signInWithGoogle() {
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: 'yourapp://auth/callback',
-    },
+  const response = await api.post('/auth/google', {
+    redirectTo: 'yourapp://auth/callback',
   });
-  if (error) throw error;
-  return data;
+  return response.data;
 }
 
 export async function signInWithApple() {
@@ -974,17 +950,14 @@ export async function signInWithApple() {
     ],
   });
 
-  const { data, error } = await supabase.auth.signInWithIdToken({
-    provider: 'apple',
-    token: credential.identityToken!,
+  const response = await api.post('/auth/apple', {
+    token: credential.identityToken,
   });
-
-  if (error) throw error;
-  return data;
+  return response.data;
 }
 ```
 
-- [ ] Step 3: Enable Google and Apple providers in your Supabase dashboard under Authentication > Providers.
+- [ ] Step 3: Configure the matching Google and Apple providers in your backend/auth platform.
 
 ### 6.4 Add Forgot Password Flow
 
@@ -992,18 +965,17 @@ export async function signInWithApple() {
 
 ```typescript
 export async function resetPassword(email: string) {
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+  await api.post('/auth/forgot-password', {
+    email,
     redirectTo: 'yourapp://auth/reset-password',
   });
-  if (error) throw error;
 }
 
 export async function updatePassword(newPassword: string) {
-  const { data, error } = await supabase.auth.updateUser({
+  const response = await api.post('/auth/reset-password', {
     password: newPassword,
   });
-  if (error) throw error;
-  return data;
+  return response.data;
 }
 ```
 
@@ -1023,15 +995,15 @@ export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 ### 6.5 Add Email Verification
 
-Supabase sends a verification email automatically on `signUp`. To handle the confirmation flow:
+If your backend uses email verification, handle the confirmation deep link in a dedicated screen:
 
-- [ ] Step 1: Configure the redirect URL in your Supabase project dashboard.
+- [ ] Step 1: Configure the redirect URL in your backend or auth provider.
 - [ ] Step 2: Add a deep link handler in `app/(auth)/confirm.tsx`:
 
 ```typescript
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase';
+import { api } from '@/services/api/client';
 
 export default function ConfirmScreen() {
   const { token_hash, type } = useLocalSearchParams<{
@@ -1042,9 +1014,10 @@ export default function ConfirmScreen() {
 
   useEffect(() => {
     if (token_hash && type) {
-      supabase.auth.verifyOtp({ token_hash, type: type as 'email' }).then(({ error }) => {
-        if (!error) router.replace('/(main)/(tabs)');
-      });
+      api
+        .post('/auth/verify-email', { token_hash, type })
+        .then(() => router.replace('/(main)/(tabs)'))
+        .catch(() => undefined);
     }
   }, [token_hash, type, router]);
 

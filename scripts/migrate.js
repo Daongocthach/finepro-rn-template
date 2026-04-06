@@ -408,54 +408,22 @@ async function stepLanguages(rl) {
 async function stepBackend(rl) {
   sectionHeader(4, 'Backend Configuration');
 
-  const hasSupabase = await askYesNo(rl, 'Will you use Supabase as your backend?', false);
-
   const envPath = path.join(ROOT, '.env');
   const envExamplePath = path.join(ROOT, '.env.example');
-
-  if (hasSupabase) {
-    const supabaseUrl = await ask(rl, 'Supabase project URL', '');
-    const supabaseKey = await ask(rl, 'Supabase anon/public key', '');
-
-    if (supabaseUrl || supabaseKey) {
-      let envContent = '';
-      if (fileExists(envExamplePath)) {
-        envContent = readFile(envExamplePath);
-      }
-      if (supabaseUrl) {
-        envContent = envContent.replace(
-          /EXPO_PUBLIC_SUPABASE_URL=.*/,
-          `EXPO_PUBLIC_SUPABASE_URL=${supabaseUrl}`
-        );
-      }
-      if (supabaseKey) {
-        envContent = envContent.replace(
-          /EXPO_PUBLIC_SUPABASE_PUBLISHED_KEY=.*/,
-          `EXPO_PUBLIC_SUPABASE_PUBLISHED_KEY=${supabaseKey}`
-        );
-      }
-      writeFile(envPath, envContent);
-      success('.env created with Supabase credentials');
-      warn('Make sure .env is in your .gitignore (it should be by default)');
+  const apiUrl = await ask(rl, 'Custom API base URL (or press Enter to skip)', '');
+  if (apiUrl) {
+    let envContent = '';
+    if (fileExists(envExamplePath)) {
+      envContent = readFile(envExamplePath);
+    } else {
+      envContent = 'EXPO_PUBLIC_API_BASE_URL=\nEXPO_PUBLIC_APP_ENV=development\n';
     }
-  } else {
-    info('App will work without Supabase. The template gracefully handles missing credentials.');
-
-    const apiUrl = await ask(rl, 'Custom API base URL (or press Enter to skip)', '');
-    if (apiUrl) {
-      let envContent = '';
-      if (fileExists(envExamplePath)) {
-        envContent = readFile(envExamplePath);
-      } else {
-        envContent = 'EXPO_PUBLIC_API_BASE_URL=\nEXPO_PUBLIC_APP_ENV=development\n';
-      }
-      envContent = envContent.replace(
-        /EXPO_PUBLIC_API_BASE_URL=.*/,
-        `EXPO_PUBLIC_API_BASE_URL=${apiUrl}`
-      );
-      writeFile(envPath, envContent);
-      success(`.env created with API URL: ${apiUrl}`);
-    }
+    envContent = envContent.replace(
+      /EXPO_PUBLIC_API_BASE_URL=.*/,
+      `EXPO_PUBLIC_API_BASE_URL=${apiUrl}`
+    );
+    writeFile(envPath, envContent);
+    success(`.env created with API URL: ${apiUrl}`);
   }
 }
 

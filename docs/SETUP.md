@@ -20,16 +20,13 @@ cp .env.example .env
 npm start
 ```
 
-The app works without Supabase configuration. Auth features activate once you add valid credentials to `.env`.
+The app works without any backend-specific configuration. Add only the variables your own backend needs.
 
 ## Environment Variables
 
 | Variable                             | Required | Description                                                |
 | ------------------------------------ | -------- | ---------------------------------------------------------- |
-| `EXPO_PUBLIC_SUPABASE_URL`           | No       | Supabase project URL                                       |
-| `EXPO_PUBLIC_SUPABASE_PUBLISHED_KEY` | No       | Supabase anon key                                          |
 | `EXPO_PUBLIC_API_BASE_URL`           | No       | Base URL for API client (default: https://api.example.com) |
-| `EXPO_PUBLIC_SENTRY_DSN`             | No       | Sentry DSN for crash reporting                             |
 | `EXPO_PUBLIC_APP_ENV`                | No       | Environment: development, staging, production              |
 
 ## Customization Checklist
