@@ -1,10 +1,7 @@
-import { Check, Trash2, X } from 'lucide-react-native';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import type { StyleProp, TextStyle } from 'react-native';
 import { Pressable, View } from 'react-native';
-import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { Button } from '@/common/components/Button';
+import { StyleSheet } from 'react-native-unistyles';
 import { Text } from '@/common/components/Text';
 import {
   appAlert,
@@ -17,47 +14,12 @@ interface AppAlertProviderProps {
   children: ReactNode;
 }
 
-function getButtonVariant(button: AppAlertButton) {
-  if (button.style === 'cancel') {
-    return 'outline' as const;
-  }
-
-  if (button.style === 'destructive') {
-    return 'secondary' as const;
-  }
-
-  return 'primary' as const;
-}
-
-function getButtonIcon(
-  button: AppAlertButton,
-  colors: {
-    icon: { primary: string; onBrand: string };
-    state: { error: string };
-  }
-) {
-  if (button.style === 'cancel') {
-    return <X size={16} color={colors.icon.primary} strokeWidth={2} absoluteStrokeWidth />;
-  }
-
-  if (button.style === 'destructive') {
-    return <Trash2 size={16} color={colors.state.error} strokeWidth={2} absoluteStrokeWidth />;
-  }
-
-  return <Check size={16} color={colors.icon.onBrand} strokeWidth={2} absoluteStrokeWidth />;
-}
-
-function getButtonLabelStyle(button: AppAlertButton): StyleProp<TextStyle> | undefined {
-  if (button.style === 'destructive') {
-    return styles.destructiveLabel;
-  }
-
-  return undefined;
+function isDestructive(button: AppAlertButton) {
+  return button.style === 'destructive';
 }
 
 export function AppAlertProvider({ children }: AppAlertProviderProps) {
   const { t } = useTranslation();
-  const { theme } = useUnistyles();
   const [currentAlert, setCurrentAlert] = useState<AppAlertPayload | null>(null);
 
   useEffect(() => registerAppAlertHandler(setCurrentAlert), []);
@@ -66,23 +28,11 @@ export function AppAlertProvider({ children }: AppAlertProviderProps) {
 
   const actions = useMemo(() => {
     const fallbackButtons: AppAlertButton[] = [{ text: String(t('common.ok' as never)) }];
-    const nextButtons: AppAlertButton[] = currentAlert?.buttons?.length
-      ? currentAlert.buttons
-      : fallbackButtons;
-
-    return nextButtons.map((button) => ({
-      text: button.text,
-      variant: getButtonVariant(button),
-      leftIcon: getButtonIcon(button, theme.colors),
-      labelStyle: getButtonLabelStyle(button),
-      onPress: () => {
-        dismiss();
-        button.onPress?.();
-      },
-    }));
-  }, [currentAlert?.buttons, t, theme.colors]);
+    return currentAlert?.buttons?.length ? currentAlert.buttons : fallbackButtons;
+  }, [currentAlert?.buttons, t]);
 
   const dismissOnBackdropPress = currentAlert?.options?.dismissOnBackdropPress ?? true;
+  const isHorizontalActions = actions.length <= 2;
 
   return (
     <View style={styles.container}>
@@ -95,28 +45,56 @@ export function AppAlertProvider({ children }: AppAlertProviderProps) {
           accessibilityRole="alert"
         >
           <Pressable style={styles.card} onPress={() => {}}>
-            <Text variant="h2" style={styles.title}>
-              {currentAlert.title}
-            </Text>
-
-            {currentAlert.message ? (
-              <Text variant="bodySmall" style={styles.message}>
-                {currentAlert.message}
+            <View style={styles.content}>
+              <Text variant="h2" style={styles.title}>
+                {currentAlert.title}
               </Text>
-            ) : null}
 
-            <View style={styles.actions}>
-              {actions.map((action) => (
-                <Button
+              {currentAlert.message ? (
+                <Text variant="body" style={styles.message}>
+                  {currentAlert.message}
+                </Text>
+              ) : null}
+            </View>
+
+            <View
+              style={[
+                styles.actions,
+                isHorizontalActions ? styles.actionsRow : styles.actionsColumn,
+              ]}
+            >
+              {actions.map((action, index) => (
+                <Pressable
                   key={action.text}
-                  title={action.text}
-                  variant={action.variant}
-                  size="sm"
-                  leftIcon={action.leftIcon}
-                  labelStyle={action.labelStyle}
-                  onPress={action.onPress}
-                />
+                  onPress={() => {
+                    dismiss();
+                    action.onPress?.();
+                  }}
+                  style={[
+                    styles.actionButton,
+                    isHorizontalActions
+                      ? styles.actionButtonHorizontal
+                      : styles.actionButtonVertical,
+                    !isHorizontalActions && index > 0 ? styles.actionButtonVerticalBorder : null,
+                  ]}
+                  accessibilityRole="button"
+                  accessibilityLabel={action.text}
+                >
+                  <Text
+                    variant="body"
+                    weight={action.style === 'cancel' ? 'semibold' : 'medium'}
+                    style={[
+                      styles.actionText,
+                      isDestructive(action) ? styles.actionTextDestructive : null,
+                    ]}
+                  >
+                    {action.text}
+                  </Text>
+                </Pressable>
               ))}
+              {isHorizontalActions && actions.length === 2 ? (
+                <View style={styles.actionDivider} />
+              ) : null}
             </View>
           </Pressable>
         </Pressable>
@@ -142,29 +120,77 @@ const styles = StyleSheet.create((theme) => ({
     padding: theme.metrics.spacing.p16,
   },
   card: {
-    width: '85%',
-    maxWidth: 420,
-    backgroundColor: theme.colors.background.modal,
-    borderRadius: theme.metrics.borderRadius.xl,
-    padding: theme.metrics.spacing.p24,
+    width: '84%',
+    maxWidth: 360,
+    overflow: 'hidden',
+    backgroundColor: theme.colors.mode === 'dark' ? '#2B2B2F' : '#F7F7F8',
+    borderRadius: 20,
+    shadowColor: theme.colors.shadow.color,
+    shadowOpacity: 0.22,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 12 },
+    elevation: theme.colors.shadow.elevationLarge,
+  },
+  content: {
+    paddingHorizontal: theme.metrics.spacing.p24,
+    paddingTop: theme.metrics.spacing.p24,
+    paddingBottom: theme.metrics.spacing.p20,
     gap: theme.metrics.spacingV.p12,
   },
   title: {
     color: theme.colors.text.primary,
     textAlign: 'center' as const,
+    fontSize: theme.fonts.size.xl,
+    lineHeight: theme.fonts.size.xl * 1.2,
   },
   message: {
-    color: theme.colors.text.tertiary,
+    color: theme.colors.mode === 'dark' ? 'rgba(255,255,255,0.76)' : 'rgba(0,0,0,0.78)',
     textAlign: 'center' as const,
-  },
-  destructiveLabel: {
-    color: theme.colors.state.error,
+    lineHeight: theme.fonts.size.md * 1.35,
   },
   actions: {
+    position: 'relative',
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(60,60,67,0.16)',
+  },
+  actionsRow: {
     flexDirection: 'row' as const,
-    justifyContent: 'flex-end' as const,
-    flexWrap: 'wrap' as const,
-    gap: theme.metrics.spacing.p8,
-    marginTop: theme.metrics.spacingV.p8,
+  },
+  actionsColumn: {
+    flexDirection: 'column' as const,
+  },
+  actionButton: {
+    alignItems: 'center' as const,
+    justifyContent: 'center' as const,
+    minHeight: 56,
+    paddingHorizontal: theme.metrics.spacing.p16,
+    backgroundColor: 'transparent',
+  },
+  actionButtonHorizontal: {
+    flex: 1,
+  },
+  actionButtonVertical: {
+    width: '100%',
+  },
+  actionButtonVerticalBorder: {
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(60,60,67,0.16)',
+  },
+  actionDivider: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: '50%',
+    width: 1,
+    backgroundColor:
+      theme.colors.mode === 'dark' ? 'rgba(255,255,255,0.08)' : 'rgba(60,60,67,0.16)',
+  },
+  actionText: {
+    color: theme.colors.mode === 'dark' ? '#5AA9FF' : '#007AFF',
+    textAlign: 'center' as const,
+    fontSize: theme.fonts.size.lg,
+  },
+  actionTextDestructive: {
+    color: theme.colors.state.error,
   },
 }));
