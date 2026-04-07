@@ -50,8 +50,8 @@ export function Chip({
   if (color !== undefined) {
     if (isFilled) {
       containerColorStyle = { backgroundColor: color, borderColor: color };
-      labelColorStyle = { color: theme.colors.text.primary };
-      closeIconColor = theme.colors.text.primary;
+      labelColorStyle = { color: theme.colors.text.onBrand };
+      closeIconColor = theme.colors.icon.onBrand;
     } else {
       containerColorStyle = { borderColor: color };
       labelColorStyle = { color };
@@ -89,7 +89,9 @@ export function Chip({
         >
           <CircleX
             size={size === 'sm' ? theme.metrics.iconSize.xs : theme.metrics.iconSize.sm}
-            color={closeIconColor ?? theme.colors.icon.muted}
+            color={
+              closeIconColor ?? (isFilled ? theme.colors.icon.onBrand : theme.colors.icon.muted)
+            }
             strokeWidth={2}
             absoluteStrokeWidth
           />

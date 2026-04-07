@@ -2,8 +2,8 @@ import { ChevronLeft, Cloud, CloudOff } from 'lucide-react-native';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
-import { useAuthStore } from '@/providers/auth/authStore';
 import { Text } from '../Text';
+import { useAuthStore } from '@/providers/auth/authStore';
 import { styles } from './TabsHeader.styles';
 import type { TabsHeaderProps } from './TabsHeader.types';
 

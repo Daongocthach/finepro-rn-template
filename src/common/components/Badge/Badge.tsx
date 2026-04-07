@@ -15,7 +15,7 @@ function getDisplayCount(count: number | undefined, maxCount: number): string | 
  * @example
  * ```tsx
  * <Badge count={5} colorScheme="error" />
- * <Badge variant="dot"><Icon name="bell" /></Badge>
+ * <Badge variant="dot"><Icon icon={Bell} /></Badge>
  * ```
  */
 export function Badge({
@@ -39,6 +39,13 @@ export function Badge({
 
   const displayCount = getDisplayCount(count, maxCount);
   const isSolid = variant === 'solid';
+  let textColor: 'onBrand' | 'primary' | undefined;
+
+  if (isSolid && colorScheme === 'primary') {
+    textColor = 'onBrand';
+  } else if (isSolid) {
+    textColor = 'primary';
+  }
 
   return (
     <View style={styles.badge}>
@@ -46,7 +53,7 @@ export function Badge({
         <Text
           variant="caption"
           weight="semibold"
-          color={isSolid ? 'primary' : undefined}
+          color={textColor}
           style={!isSolid ? styles.badgeText : undefined}
         >
           {displayCount}

@@ -2,7 +2,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import {
   ArrowDown,
   ArrowUp,
-  Bell,
   CheckCheck,
   Grid2x2,
   MessageCircleMore,
@@ -14,43 +13,39 @@ import {
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { Avatar, Card, ListItem, ScreenContainer, SearchBar, Text } from '@/common/components';
-
-function getGreetingKey(hour: number): 'greetingMorning' | 'greetingAfternoon' | 'greetingEvening' {
-  if (hour < 12) return 'greetingMorning';
-  if (hour < 18) return 'greetingAfternoon';
-  return 'greetingEvening';
-}
+import { Card, ListItem, ScreenContainer, SearchBar, Text } from '@/common/components';
 
 export default function HomeTab() {
   const { t } = useTranslation();
   const { theme } = useUnistyles();
-
-  const greetingKey = getGreetingKey(new Date().getHours());
   const quickActions = [
     {
       key: 'send',
       label: t('home.quickActions.send'),
       icon: ArrowUp,
       toneStyle: styles.actionBubblePrimary,
+      iconColor: theme.colors.icon.onBrand,
     },
     {
       key: 'receive',
       label: t('home.quickActions.receive'),
       icon: ArrowDown,
       toneStyle: styles.actionBubbleAccent,
+      iconColor: theme.colors.icon.onBrand,
     },
     {
       key: 'pay',
       label: t('home.quickActions.pay'),
       icon: Wallet,
       toneStyle: styles.actionBubbleHighlight,
+      iconColor: theme.colors.icon.primary,
     },
     {
       key: 'more',
       label: t('home.quickActions.more'),
       icon: Grid2x2,
       toneStyle: styles.actionBubbleSoft,
+      iconColor: theme.colors.icon.primary,
     },
   ];
 
@@ -88,26 +83,6 @@ export default function HomeTab() {
   return (
     <ScreenContainer scrollable padded edges={['top', 'bottom']} tabBarAware>
       <View style={styles.screen}>
-        <View style={styles.headerRow}>
-          <View style={styles.profileRow}>
-            <Avatar initials="AJ" size="md" accessibilityLabel={t('settings.profile.name')} />
-            <View style={styles.profileCopy}>
-              <Text variant="caption" color="secondary">
-                {t(`home.${greetingKey}`)}
-              </Text>
-              <Text variant="h3">{t('home.userName')}</Text>
-            </View>
-          </View>
-          <Pressable accessibilityRole="button" style={styles.iconButton}>
-            <Bell
-              size={20}
-              color={theme.colors.icon.secondary}
-              strokeWidth={2}
-              absoluteStrokeWidth
-            />
-          </Pressable>
-        </View>
-
         <SearchBar
           value=""
           onChangeText={() => undefined}
@@ -120,7 +95,7 @@ export default function HomeTab() {
               <View style={[styles.actionBubble, action.toneStyle]}>
                 <action.icon
                   size={18}
-                  color={theme.colors.icon.inverse}
+                  color={action.iconColor}
                   strokeWidth={2}
                   absoluteStrokeWidth
                 />
@@ -144,16 +119,16 @@ export default function HomeTab() {
             <View style={styles.featuredIconShell}>
               <Palette
                 size={18}
-                color={theme.colors.icon.inverse}
+                color={theme.colors.icon.onBrand}
                 strokeWidth={2}
                 absoluteStrokeWidth
               />
             </View>
             <View style={styles.featuredCopy}>
-              <Text variant="h3" color="inverse">
+              <Text variant="h3" color="onBrand">
                 {t('home.featured.card1Title')}
               </Text>
-              <Text variant="bodySmall" color="inverse">
+              <Text variant="bodySmall" color="onBrand">
                 {t('home.featured.card1Subtitle')}
               </Text>
             </View>
@@ -163,16 +138,16 @@ export default function HomeTab() {
             <View style={styles.featuredIconShell}>
               <TrendingUp
                 size={18}
-                color={theme.colors.icon.inverse}
+                color={theme.colors.icon.onBrand}
                 strokeWidth={2}
                 absoluteStrokeWidth
               />
             </View>
             <View style={styles.featuredCopy}>
-              <Text variant="h3" color="inverse">
+              <Text variant="h3" color="onBrand">
                 {t('home.featured.card2Title')}
               </Text>
-              <Text variant="bodySmall" color="inverse">
+              <Text variant="bodySmall" color="onBrand">
                 {t('home.featured.card2Subtitle')}
               </Text>
             </View>
@@ -251,31 +226,6 @@ export default function HomeTab() {
 const styles = StyleSheet.create((theme) => ({
   screen: {
     gap: theme.metrics.spacingV.p20,
-  },
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: theme.metrics.spacing.p12,
-  },
-  profileRow: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: theme.metrics.spacing.p12,
-  },
-  profileCopy: {
-    gap: theme.metrics.spacingV.p4,
-  },
-  iconButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: theme.metrics.borderRadius.full,
-    backgroundColor: theme.colors.background.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border.subtle,
   },
   quickActionRow: {
     flexDirection: 'row',

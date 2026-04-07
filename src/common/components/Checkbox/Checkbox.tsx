@@ -59,7 +59,7 @@ export function Checkbox({
             checked && (
               <Check
                 size={ICON_SIZES[size] ?? 14}
-                color={theme.colors.icon.primary}
+                color={theme.colors.icon.onBrand}
                 strokeWidth={2.5}
                 absoluteStrokeWidth
               />

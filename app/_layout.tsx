@@ -7,13 +7,15 @@ import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Toast from 'react-native-toast-message';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { ErrorBoundary } from '@/common/components/ErrorBoundary';
-import { QueryProvider } from '@/providers';
-import { useAuthStore } from '@/providers/auth/authStore';
 import InterBold from '../assets/fonts/Inter-Bold.ttf';
 import InterMedium from '../assets/fonts/Inter-Medium.ttf';
 import InterRegular from '../assets/fonts/Inter-Regular.ttf';
 import InterSemiBold from '../assets/fonts/Inter-SemiBold.ttf';
+import { AppHeader } from '@/common/components';
+import { ErrorBoundary } from '@/common/components/ErrorBoundary';
+import { useProtectedRoute } from '@/hooks';
+import { QueryProvider } from '@/providers';
+import { useAuthStore } from '@/providers/auth/authStore';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,8 +38,9 @@ function RootNavigator() {
         headerShown: false,
         contentStyle: { backgroundColor: theme.colors.background.app },
       }}
-      initialRouteName="(main)"
+      initialRouteName="(auth)"
     >
+      <Stack.Screen name="(auth)" />
       <Stack.Screen name="(main)" />
     </Stack>
   );
@@ -45,9 +48,13 @@ function RootNavigator() {
 
 function AppContent() {
   useAuthInit();
+  useProtectedRoute();
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
+  const isLoading = useAuthStore((s) => s.isLoading);
 
   return (
     <View style={styles.appContainer}>
+      {!isLoading && isAuthenticated ? <AppHeader /> : null}
       <RootNavigator />
       <Toast />
     </View>

@@ -36,7 +36,7 @@ export function IconButton({
   const iconSize = ICON_SIZES[size] ?? ICON_SIZES.md;
 
   const colorMap = {
-    primary: theme.colors.text.primary,
+    primary: theme.colors.text.onBrand,
     secondary: theme.colors.text.primary,
     outline: theme.colors.brand.primary,
     ghost: theme.colors.icon.primary,

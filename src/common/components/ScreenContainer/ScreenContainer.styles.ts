@@ -14,10 +14,13 @@ export const styles = StyleSheet.create((theme, rt) => ({
     },
   },
   edgeTop: {
-    paddingTop: rt.insets.top,
+    paddingTop: theme.metrics.spacingV.p8,
   },
   edgeBottom: {
     paddingBottom: rt.insets.bottom + theme.metrics.spacing.p4,
+  },
+  tabBarAwareExtra: {
+    paddingBottom: theme.metrics.spacing.p12,
   },
 }));
 

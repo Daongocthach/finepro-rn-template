@@ -6,17 +6,19 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
-import { Select } from '@/common/components/Select';
-import { Text } from '@/common/components/Text';
-import { useScreenDimensions } from '@/hooks/useScreenDimensions';
-import i18n from '@/i18n/config';
-import { getThemePreference, setThemeMode, type ThemeModePreference } from '@/theme/themeManager';
-import { setItem, STORAGE_KEYS } from '@/utils/storage';
 import DarkModeIcon from '../../../../assets/dark-mode-icon.png';
 import LightModeIcon from '../../../../assets/light-mode-icon.png';
 import SystemModeIcon from '../../../../assets/system-mode-icon.png';
 import UnitedStatesFlagIcon from '../../../../assets/united-states-flag-icon.png';
 import VietnamFlagIcon from '../../../../assets/vietnam-flag-icon.png';
+import { Icon } from '@/common/components/Icon';
+import { Select } from '@/common/components/Select';
+import { Text } from '@/common/components/Text';
+import { useScreenDimensions } from '@/hooks/useScreenDimensions';
+import i18n from '@/i18n/config';
+import { useAuthStore } from '@/providers/auth/authStore';
+import { getThemePreference, setThemeMode, type ThemeModePreference } from '@/theme/themeManager';
+import { setItem, STORAGE_KEYS } from '@/utils/storage';
 
 type LanguageValue = 'vi' | 'en';
 
@@ -30,30 +32,56 @@ function getGreetingKey(hour: number): 'morning' | 'afternoon' | 'evening' {
   return 'evening';
 }
 
+function getDisplayName(user: ReturnType<typeof useAuthStore.getState>['user']) {
+  if (!user) {
+    return 'Guest';
+  }
+
+  if (user.username) {
+    return user.username;
+  }
+
+  if (typeof user.email === 'string' && user.email.length > 0) {
+    return user.email.split('@')[0] || 'User';
+  }
+
+  return 'User';
+}
+
+function getInitials(label: string) {
+  const parts = label.trim().split(/\s+/).filter(Boolean);
+
+  if (parts.length === 0) {
+    return 'GU';
+  }
+
+  if (parts.length === 1) {
+    return parts[0].slice(0, 2).toUpperCase();
+  }
+
+  return `${parts[0][0] ?? ''}${parts[1][0] ?? ''}`.toUpperCase();
+}
+
 export function AppHeader() {
   const { t } = useTranslation();
   const router = useRouter();
   const pathname = usePathname();
   const { theme } = useUnistyles();
   const { isTablet } = useScreenDimensions();
+  const authUser = useAuthStore((state) => state.user);
   const [currentMode, setCurrentMode] = useState<ThemeModePreference>(() => getThemePreference());
 
   const isIndexRoute = pathname === '/' || pathname === '/index';
-  const isTabRoute = ['/', '/index', '/stats', '/add', '/favorites', '/profile'].includes(pathname);
+  const isTabRoute = ['/', '/index', '/settings', '/showcase'].includes(pathname);
   const greeting = getGreetingKey(new Date().getHours());
+  const displayName = getDisplayName(authUser);
+  const avatarLabel = getInitials(displayName);
 
   const pageTitle = useMemo(() => {
-    if (pathname === '/welcome') return t('welcomeScreen.title');
     if (pathname === '/' || pathname === '/index') return t('tabs.home');
-    if (pathname === '/stats') return t('tabs.stats');
-    if (pathname === '/add') return t('tabs.add');
-    if (pathname === '/favorites') return t('tabs.favorites');
-    if (pathname === '/profile') return t('tabs.profile');
-    if (pathname === '/food-form') return t('manualFoodEntry.title');
-    if (pathname === '/application-form') return t('application.applyTitle');
-    if (pathname === '/application-form-success') {
-      return t('application.form.successPageTitle');
-    }
+    if (pathname === '/settings') return t('tabs.settings');
+    if (pathname === '/showcase') return t('tabs.showcase');
+    if (pathname === '/+not-found') return t('header.brandName');
 
     return '';
   }, [pathname, t]);
@@ -80,13 +108,7 @@ export function AppHeader() {
     (option) => option.value === selectedLanguage
   );
   const selectedThemeOption = themeOptions.find((option) => option.value === currentMode);
-
   const handleBackPress = () => {
-    if (pathname === '/welcome') {
-      router.replace('/');
-      return;
-    }
-
     if (isTabRoute && !isIndexRoute) {
       router.replace('/');
       return;
@@ -103,12 +125,7 @@ export function AppHeader() {
         accessibilityLabel={t('header.back')}
         style={styles.backButtonWrap}
       >
-        <ChevronLeft
-          size={18}
-          color={theme.colors.icon.primary}
-          strokeWidth={2}
-          absoluteStrokeWidth
-        />
+        <Icon icon={ChevronLeft} variant="primary" size={18} />
       </Pressable>
       <Text
         variant="h3"
@@ -123,23 +140,17 @@ export function AppHeader() {
   );
 
   if (isIndexRoute) {
-    const greetingLabel = {
-      morning: t('homeScreen.greetings.morning'),
-      afternoon: t('homeScreen.greetings.afternoon'),
-      evening: t('homeScreen.greetings.evening'),
-    }[greeting];
-
     headerContent = (
       <View style={styles.profileRow}>
         <LinearGradient colors={theme.colors.gradient.highlight} style={styles.avatarBubble}>
-          <Text variant="body" weight="bold">
-            AL
+          <Text variant="body" weight="bold" color="onBrand">
+            {avatarLabel}
           </Text>
         </LinearGradient>
         <View style={styles.textWrap}>
-          <Text variant="h3">{t('homeScreen.greetingTitle', { name: 'Alex' })}</Text>
+          <Text variant="h3">{t('homeScreen.greetingTitle', { name: displayName })}</Text>
           <Text variant="bodySmall" color="secondary">
-            {greetingLabel}
+            {t(`homeScreen.greetings.${greeting}`)}
           </Text>
         </View>
       </View>
@@ -179,7 +190,7 @@ export function AppHeader() {
               triggerVariant="plain"
               placeholder={t('header.toggleTheme')}
             >
-              <View style={styles.themeSelectContent}>
+              <View style={styles.actionCircle}>
                 <Image
                   source={selectedThemeOption?.iconSource ?? LightModeIcon}
                   style={styles.themeToggleIcon}
@@ -198,7 +209,7 @@ export function AppHeader() {
               triggerVariant="plain"
               placeholder={t('language.label')}
             >
-              <View style={styles.languageSelectContent}>
+              <View style={styles.actionCircle}>
                 {selectedLanguageOption?.iconSource ? (
                   <Image
                     source={selectedLanguageOption.iconSource}
@@ -279,9 +290,13 @@ const styles = StyleSheet.create((theme, rt) => ({
   actionsWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: theme.metrics.spacing.p16,
+    gap: theme.metrics.spacing.p12,
   },
-  iconShell: {
+  themeSelectWrap: {
+    width: theme.metrics.spacing.p40,
+    flexShrink: 0,
+  },
+  actionCircle: {
     width: theme.metrics.spacing.p40,
     height: theme.metrics.spacing.p40,
     borderRadius: theme.metrics.borderRadius.full,
@@ -289,11 +304,12 @@ const styles = StyleSheet.create((theme, rt) => ({
     justifyContent: 'center',
     backgroundColor: theme.colors.background.surface,
     borderWidth: 1,
-    borderColor: theme.colors.border.default,
-  },
-  themeSelectWrap: {
-    width: theme.metrics.spacing.p20,
-    flexShrink: 0,
+    borderColor: theme.colors.border.subtle,
+    shadowColor: theme.colors.shadow.color,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: theme.colors.shadow.elevationSmall,
   },
   themeSelectContent: {
     alignItems: 'center',
@@ -304,7 +320,7 @@ const styles = StyleSheet.create((theme, rt) => ({
     height: theme.metrics.spacing.p20,
   },
   selectWrap: {
-    width: theme.metrics.spacing.p20,
+    width: theme.metrics.spacing.p40,
     flexShrink: 0,
   },
   languageSelectContent: {

@@ -27,12 +27,14 @@ import {
   Switch,
   Text,
 } from '@/common/components';
+import { useAuthStore } from '@/providers/auth/authStore';
 import { getCurrentMode, toggleDarkMode } from '@/theme/themeManager';
 
 export default function SettingsTab() {
   const { t } = useTranslation();
   const { theme } = useUnistyles();
   const [isDarkMode, setIsDarkMode] = useState(getCurrentMode() === 'dark');
+  const clearSession = useAuthStore((state) => state.clearSession);
 
   const handleDarkModeChange = (value: boolean) => {
     setIsDarkMode(value);
@@ -42,13 +44,6 @@ export default function SettingsTab() {
   return (
     <ScreenContainer scrollable padded edges={['top', 'bottom']} tabBarAware>
       <View style={styles.screen}>
-        <View style={styles.header}>
-          <Text variant="h1">{t('settings.title')}</Text>
-          <Text variant="body" color="secondary">
-            {t('settings.about')}
-          </Text>
-        </View>
-
         <Card variant="elevated" style={styles.profileCard}>
           <View style={styles.profileRow}>
             <Avatar initials="AJ" size="xl" accessibilityLabel={t('settings.profile.name')} />
@@ -302,7 +297,7 @@ export default function SettingsTab() {
             {t('settings.sections.danger')}
           </Text>
           <Card variant="outlined" style={styles.sectionCard}>
-            <Pressable style={styles.dangerRow}>
+            <Pressable style={styles.dangerRow} onPress={clearSession}>
               <View style={styles.dangerCopy}>
                 <Text variant="body" weight="medium">
                   {t('settings.danger.logout')}
@@ -345,9 +340,6 @@ export default function SettingsTab() {
 const styles = StyleSheet.create((theme) => ({
   screen: {
     gap: theme.metrics.spacingV.p20,
-  },
-  header: {
-    gap: theme.metrics.spacingV.p8,
   },
   profileCard: {
     gap: theme.metrics.spacingV.p16,

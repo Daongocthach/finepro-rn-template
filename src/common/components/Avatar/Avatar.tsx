@@ -69,7 +69,7 @@ export function Avatar({ source, initials, icon, size = 'md', accessibilityLabel
     >
       <User
         size={dimension * 0.5}
-        color={theme.colors.icon.inverse}
+        color={theme.colors.icon.onBrand}
         strokeWidth={2}
         absoluteStrokeWidth
       />

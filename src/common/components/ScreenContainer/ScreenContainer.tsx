@@ -27,7 +27,9 @@ export function ScreenContainer({
   let bottomStyle = null;
 
   if (hasBottom) {
-    bottomStyle = tabBarAware ? { paddingBottom: bottomPadding } : styles.edgeBottom;
+    bottomStyle = tabBarAware
+      ? { paddingBottom: bottomPadding + styles.tabBarAwareExtra.paddingBottom }
+      : styles.edgeBottom;
   }
 
   if (scrollable) {

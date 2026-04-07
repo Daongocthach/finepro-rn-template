@@ -144,7 +144,7 @@ module.exports = [
       'import/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
+          groups: ['builtin', 'external', 'parent', 'internal', 'sibling', 'index'],
           'newlines-between': 'never',
           alphabetize: { order: 'asc', caseInsensitive: true },
         },

@@ -86,13 +86,6 @@ export default function ShowcaseTab() {
   return (
     <ScreenContainer scrollable padded edges={['top', 'bottom']} tabBarAware>
       <View style={styles.content}>
-        <View style={styles.header}>
-          <Text variant="h1">{t('showcase.title')}</Text>
-          <Text variant="body" color="secondary">
-            {t('showcase.subtitle')}
-          </Text>
-        </View>
-
         <Card variant="elevated" style={styles.section}>
           <View style={styles.overviewHeader}>
             <View style={styles.profileRow}>
@@ -297,9 +290,6 @@ export default function ShowcaseTab() {
 const styles = StyleSheet.create((theme) => ({
   content: {
     gap: theme.metrics.spacingV.p16,
-  },
-  header: {
-    gap: theme.metrics.spacingV.p8,
   },
   section: {
     gap: theme.metrics.spacingV.p16,

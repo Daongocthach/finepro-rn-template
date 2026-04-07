@@ -42,6 +42,26 @@
     "themeLight": "Sáng",
     "themeDark": "Tối"
   },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập",
+      "subtitle": "Dùng tài khoản admin mock để vào luồng chính của ứng dụng.",
+      "usernameLabel": "Tên đăng nhập",
+      "usernamePlaceholder": "Nhập tên đăng nhập",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "Nhập mật khẩu",
+      "submit": "Đăng nhập",
+      "signInWithGoogle": "Đăng nhập với Google",
+      "hint": "Tài khoản demo: admin / 1234",
+      "demoUsername": "admin",
+      "demoPassword": "1234",
+      "invalidCredentials": "Sai tên đăng nhập hoặc mật khẩu.",
+      "googleUnavailable": "Tính năng đăng nhập Google chưa được cấu hình."
+    },
+    "register": {
+      "disabled": "Đăng ký đang bị tắt ở chế độ mock."
+    }
+  },
   "home": {
     "welcome": "Chào mừng",
     "subtitle": "Ứng dụng của bạn đã sẵn sàng.",

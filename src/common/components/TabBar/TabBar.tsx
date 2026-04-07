@@ -1,13 +1,4 @@
-import { LinearGradient } from 'expo-linear-gradient';
-import {
-  ChartColumn,
-  Circle,
-  House,
-  Library,
-  Plus,
-  User,
-  type LucideIcon,
-} from 'lucide-react-native';
+import { Circle, House, Library, Settings2, type LucideIcon } from 'lucide-react-native';
 import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUnistyles } from 'react-native-unistyles';
@@ -17,10 +8,8 @@ import type { TabBarProps } from './TabBar.types';
 
 const TAB_ICONS: Record<string, { active: LucideIcon; inactive: LucideIcon }> = {
   index: { active: House, inactive: House },
-  stats: { active: ChartColumn, inactive: ChartColumn },
-  add: { active: Plus, inactive: Plus },
-  favorites: { active: Library, inactive: Library },
-  profile: { active: User, inactive: User },
+  settings: { active: Settings2, inactive: Settings2 },
+  showcase: { active: Library, inactive: Library },
 };
 
 export function TabBar({ state, descriptors, navigation }: TabBarProps) {
@@ -54,14 +43,7 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
 
         const icons = TAB_ICONS[route.name] ?? { active: Circle, inactive: Circle };
         const TabIcon = isFocused ? icons.active : icons.inactive;
-        const isAddTab = route.name === 'add';
-        let iconColor = theme.colors.icon.primary;
-
-        if (isAddTab) {
-          iconColor = theme.colors.icon.inverse;
-        } else if (isFocused) {
-          iconColor = theme.colors.icon.primary;
-        }
+        const iconColor = isFocused ? theme.colors.icon.onBrand : theme.colors.icon.primary;
 
         return (
           <Pressable
@@ -71,41 +53,23 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
             accessibilityRole="tab"
             accessibilityState={{ selected: isFocused }}
             accessibilityLabel={options.tabBarAccessibilityLabel}
-            style={[styles.tab, isAddTab ? styles.addTab : styles.standardTab]}
+            style={[styles.tab, styles.standardTab]}
           >
-            {isAddTab ? (
-              <View style={styles.addBubble}>
-                <LinearGradient
-                  colors={theme.colors.gradient.accent}
-                  style={styles.addBubbleGradient}
-                >
-                  <TabIcon
-                    size={24}
-                    color={iconColor}
-                    accessibilityRole="image"
-                    accessibilityLabel={options.title}
-                    strokeWidth={2}
-                    absoluteStrokeWidth
-                  />
-                </LinearGradient>
-              </View>
-            ) : (
-              <View
-                style={[
-                  styles.tabBubble,
-                  isFocused ? styles.tabBubbleActive : styles.tabBubbleInactive,
-                ]}
-              >
-                <TabIcon
-                  size={18}
-                  color={iconColor}
-                  accessibilityRole="image"
-                  accessibilityLabel={options.title}
-                  strokeWidth={2}
-                  absoluteStrokeWidth
-                />
-              </View>
-            )}
+            <View
+              style={[
+                styles.tabBubble,
+                isFocused ? styles.tabBubbleActive : styles.tabBubbleInactive,
+              ]}
+            >
+              <TabIcon
+                size={18}
+                color={iconColor}
+                accessibilityRole="image"
+                accessibilityLabel={options.title}
+                strokeWidth={2}
+                absoluteStrokeWidth
+              />
+            </View>
           </Pressable>
         );
       })}

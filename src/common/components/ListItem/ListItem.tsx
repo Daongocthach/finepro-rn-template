@@ -16,7 +16,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
  * <ListItem
  *   title="Settings"
  *   subtitle="Manage your preferences"
- *   left={<Icon name="settings" />}
+ *   left={<Icon icon={Settings} />}
  *   onPress={() => navigate('settings')}
  * />
  * ```

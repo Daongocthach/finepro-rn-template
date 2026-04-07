@@ -3,6 +3,8 @@ export { Button } from './Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
 export { IconButton } from './IconButton';
 export type { IconButtonProps, IconButtonVariant, IconButtonSize } from './IconButton';
+export { Icon } from './Icon';
+export type { IconProps, IconSizeVariant, IconVariant } from './Icon';
 
 // Data Display
 export { Avatar } from './Avatar';
@@ -58,6 +60,7 @@ export { TextArea } from './TextArea';
 export type { TextAreaProps } from './TextArea';
 
 // Layout
+export { AppHeader } from './AppHeader';
 export { Divider } from './Divider';
 export type { DividerProps } from './Divider';
 export { ScreenContainer } from './ScreenContainer';

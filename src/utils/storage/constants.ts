@@ -8,6 +8,8 @@ export const STORAGE_KEYS = {
   },
   auth: {
     lastEmail: 'auth_last_email',
+    session: 'auth_session',
+    user: 'auth_user',
   },
   app: {
     lastVersion: 'app_last_version',

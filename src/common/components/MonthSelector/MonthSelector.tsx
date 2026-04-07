@@ -2,6 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, View, type ListRenderItem } from 'react-native';
+import { useUnistyles } from 'react-native-unistyles';
 import { IconButton } from '@/common/components/IconButton';
 import { Text } from '@/common/components/Text';
 import { DAY_ITEM_WIDTH, styles } from './MonthSelector.styles';
@@ -40,6 +41,7 @@ export function MonthSelector({
   locale,
 }: MonthSelectorProps) {
   const { t, i18n } = useTranslation();
+  const { theme } = useUnistyles();
   const normalizedSelectedDate = useMemo(() => startOfDay(selectedDate), [selectedDate]);
   const minBoundary = useMemo(() => (minDate ? startOfDay(minDate) : undefined), [minDate]);
   const maxBoundary = useMemo(() => startOfDay(maxDate ?? new Date()), [maxDate]);
@@ -156,8 +158,9 @@ export function MonthSelector({
       <View style={styles.header}>
         <IconButton
           icon={ChevronLeft}
-          variant="ghost"
+          variant="secondary"
           size="md"
+          color={theme.colors.icon.primary}
           disabled={!canMovePrev}
           onPress={() => handleChangeMonth(-1)}
           accessibilityLabel={t('common.back')}
@@ -169,8 +172,9 @@ export function MonthSelector({
         </View>
         <IconButton
           icon={ChevronRight}
-          variant="ghost"
+          variant="secondary"
           size="md"
+          color={theme.colors.icon.primary}
           disabled={!canMoveNext}
           onPress={() => handleChangeMonth(1)}
           accessibilityLabel={t('common.next')}

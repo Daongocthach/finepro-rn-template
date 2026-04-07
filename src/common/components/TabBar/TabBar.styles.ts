@@ -31,12 +31,7 @@ export const styles = StyleSheet.create((theme) => ({
     zIndex: 1,
   },
   standardTab: {
-    maxWidth: '22%',
-  },
-  addTab: {
-    flex: 0,
-    marginTop: -vs(34),
-    paddingHorizontal: theme.metrics.spacing.p8,
+    maxWidth: '30%',
   },
   tabBubble: {
     width: theme.metrics.spacing.p44,
@@ -52,26 +47,5 @@ export const styles = StyleSheet.create((theme) => ({
   },
   tabBubbleInactive: {
     backgroundColor: 'transparent',
-  },
-  addBubble: {
-    width: theme.metrics.spacing.p64,
-    height: theme.metrics.spacing.p64,
-    borderRadius: theme.metrics.borderRadius.full,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 6,
-    borderColor: theme.colors.background.app,
-    shadowColor: theme.colors.shadow.color,
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.26,
-    shadowRadius: 20,
-    elevation: theme.colors.shadow.elevationLarge,
-  },
-  addBubbleGradient: {
-    width: '100%',
-    height: '100%',
-    borderRadius: theme.metrics.borderRadius.full,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 }));
