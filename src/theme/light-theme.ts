@@ -75,13 +75,13 @@ export const lightColors: ThemeColors = {
   },
 
   gradient: {
-    primary: ['#8DB3FF', '#1447E6'],
-    secondary: ['#DCE8FF', '#7EA5FF'],
-    accent: ['#FFD37A', '#FF9E3D'],
-    success: ['#86EFAC', '#16A34A'],
-    error: ['#B91C1C', '#F87171'],
-    warning: ['#FFE66C', '#FFB21D'],
-    highlight: ['#E0ECFF', '#B7CCFF'],
+    primary: ['#193CB8', '#1447E6'],
+    secondary: ['#355FD6', '#7EA5FF'],
+    accent: ['#E48A28', '#FF9E3D'],
+    success: ['#1F8F4D', '#16A34A'],
+    error: ['#D13A3A', '#F87171'],
+    warning: ['#D89712', '#FFB21D'],
+    highlight: ['#4D73E8', '#B7CCFF'],
   },
 
   shadow: {

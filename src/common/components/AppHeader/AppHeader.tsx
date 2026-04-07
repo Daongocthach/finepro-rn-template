@@ -72,7 +72,6 @@ export function AppHeader() {
   const [currentMode, setCurrentMode] = useState<ThemeModePreference>(() => getThemePreference());
 
   const isIndexRoute = pathname === '/' || pathname === '/index';
-  const isTabRoute = ['/', '/index', '/settings', '/showcase'].includes(pathname);
   const greeting = getGreetingKey(new Date().getHours());
   const displayName = getDisplayName(authUser);
   const avatarLabel = getInitials(displayName);
@@ -109,11 +108,6 @@ export function AppHeader() {
   );
   const selectedThemeOption = themeOptions.find((option) => option.value === currentMode);
   const handleBackPress = () => {
-    if (isTabRoute && !isIndexRoute) {
-      router.replace('/');
-      return;
-    }
-
     router.back();
   };
 
