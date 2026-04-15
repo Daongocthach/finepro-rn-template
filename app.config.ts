@@ -10,24 +10,25 @@ const config: ExpoConfig = {
   userInterfaceStyle: 'automatic',
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.gempixel.reactnativetemplate',
+    bundleIdentifier: 'com.fineproautomation.fineprotools',
+    icon: {
+      light: './assets/ios-light.png',
+    },
     infoPlist: {
-      CFBundleDisplayName: 'React Native Template',
       CFBundleAllowMixedLocalizations: true,
-      CFBundleLocalizations: ['en', 'vi'],
+      CFBundleLocalizations: ['en', 'vi', 'zh-CN', 'zh-TW'],
       ITSAppUsesNonExemptEncryption: false,
     },
     buildNumber: '1',
   },
   android: {
     versionCode: 1,
+    softwareKeyboardLayoutMode: 'resize',
     adaptiveIcon: {
-      foregroundImage: './assets/android-icon-foreground.png',
-      backgroundImage: './assets/android-icon-background.png',
-      monochromeImage: './assets/android-icon-monochrome.png',
-      backgroundColor: '#0F172A',
+      foregroundImage: './assets/adaptive-icon.png',
+      backgroundColor: '#FFFFFF',
     },
-    package: 'com.gempixel.reactnativetemplate',
+    package: 'com.fineproautomation.fineprotools',
   },
   extra: {
     router: {},
@@ -40,8 +41,8 @@ const config: ExpoConfig = {
       'expo-localization',
       {
         supportedLocales: {
-          ios: ['en', 'vi'],
-          android: ['en', 'vi'],
+          ios: ['en', 'vi', 'zh-CN', 'zh-TW'],
+          android: ['en', 'vi', 'zh-CN', 'zh-TW'],
         },
       },
     ],
