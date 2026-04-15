@@ -5,7 +5,7 @@ export const styles = StyleSheet.create((theme) => ({
     flexDirection: 'row' as const,
     alignItems: 'center' as const,
     backgroundColor: theme.colors.background.input,
-    borderRadius: theme.metrics.borderRadius.lg,
+    borderRadius: theme.metrics.borderRadius.full,
     borderWidth: 1,
     borderColor: theme.colors.border.default,
     gap: theme.metrics.spacing.p8,

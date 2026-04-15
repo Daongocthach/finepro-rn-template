@@ -99,7 +99,7 @@ export function TabBar({ state, descriptors, navigation }: TabBarProps) {
   });
 
   return (
-    <View style={[styles.wrapper, { marginBottom: insets.bottom + vs(12) }]}>
+    <View style={[styles.wrapper, { marginBottom: insets.bottom + vs(8) }]}>
       <View style={styles.container}>
         <Animated.View style={[styles.activeIndicator, indicatorStyle]} />
 
